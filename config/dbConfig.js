@@ -34,6 +34,8 @@ db.ad = require("@/models/adsModel")(sequelize, DataTypes);
 db.category = require("@/models/categoryModel")(sequelize, DataTypes);
 db.game_type = require("@/models/gametypeModel")(sequelize, DataTypes);
 db.game = require("@/models/gameModel")(sequelize, DataTypes);
+db.privacypolicy = require("@/models/privacyPolicyModel")(sequelize, DataTypes);
+db.aboutus = require("@/models/aboutUsModel")(sequelize, DataTypes);
 
 // ASSOCIATIONS START
 
@@ -51,7 +53,7 @@ db.game.belongsTo(db.game_type, { foreignKey: "game_typeId" });
 
 // ASSOCIATIONS END
 
-db.sequelize.sync({ alter: false }).then(() => {
+db.sequelize.sync({ alter: true }).then(() => {
   console.log("### RESYNCED ###");
 });
 

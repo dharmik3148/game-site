@@ -13,10 +13,22 @@ module.exports = (seq, DT) => {
       thumbnail: {
         type: DT.STRING,
         allowNull: false,
+        get() {
+          const rawVal = this.getDataValue("thumbnail");
+          return rawVal
+            ? `${process.env.NEXT_APP_BASE_URL}/uploads/thumbnails/${rawVal}`
+            : null;
+        },
       },
       game_path: {
         type: DT.STRING,
         allowNull: false,
+        get() {
+          const rawVal = this.getDataValue("game_path");
+          return rawVal
+            ? `${process.env.NEXT_APP_BASE_URL}/uploads/games/${rawVal}/index.html`
+            : null;
+        },
       },
       played_count: {
         type: DT.INTEGER,
@@ -26,6 +38,14 @@ module.exports = (seq, DT) => {
         type: DT.BOOLEAN,
         allowNull: false,
         defaultValue: true,
+      },
+      page_title: {
+        type: DT.STRING,
+        allowNull: false,
+      },
+      meta_description: {
+        type: DT.STRING,
+        allowNull: false,
       },
     },
     { timestamps: true }
