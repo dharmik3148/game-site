@@ -16,6 +16,12 @@ module.exports = (seq, DT) => {
             : null;
         },
       },
+      img_path: {
+        type: DT.VIRTUAL,
+        get() {
+          return this.getDataValue("type_img");
+        },
+      },
     },
     { timestamps: false }
   );

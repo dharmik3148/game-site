@@ -4,12 +4,11 @@ const sequelize = new Sequelize("game-site", "root", "", {
   host: "localhost",
   dialect: "mysql",
   logging: false,
-  operatorsAliases: false,
   define: {
     freezeTableName: true,
   },
   pool: {
-    max: 5,
+    max: 10,
     min: 0,
     acquire: 30000,
     idle: 10000,
@@ -53,7 +52,7 @@ db.game.belongsTo(db.game_type, { foreignKey: "game_typeId" });
 
 // ASSOCIATIONS END
 
-db.sequelize.sync({ alter: true }).then(() => {
+db.sequelize.sync().then(() => {
   console.log("### RESYNCED ###");
 });
 

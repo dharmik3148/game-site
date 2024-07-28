@@ -39,6 +39,11 @@ module.exports = (seq, DT) => {
         allowNull: false,
         defaultValue: true,
       },
+      game_status: {
+        type: DT.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
       page_title: {
         type: DT.STRING,
         allowNull: false,

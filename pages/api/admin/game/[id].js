@@ -33,6 +33,6 @@ export default async function handler(req, res) {
 
     // await data.save();
 
-    return res.status(200).json(data);
+    return res.status(200).json({ status: true, data });
   }
 }

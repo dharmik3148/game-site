@@ -19,9 +19,7 @@ export const config = {
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const data = await Game.findOne({
-      where: { id: 1 },
-
+    const data = await Game.findAll({
       include: [
         {
           model: Ads,
@@ -37,10 +35,6 @@ export default async function handler(req, res) {
         },
       ],
     });
-
-    data.played_count += 1;
-
-    await data.save();
 
     return res.status(200).json(data);
   } else if (req.method === "POST") {
@@ -62,6 +56,8 @@ export default async function handler(req, res) {
         played_count,
         page_title,
         meta_description,
+        ad_status,
+        game_status,
         adId,
         categoryId,
         game_typeId,
@@ -132,6 +128,8 @@ export default async function handler(req, res) {
           meta_description,
           adId,
           categoryId,
+          game_status,
+          ad_status,
           game_typeId,
           game_path: extractDirName,
         };
@@ -150,5 +148,7 @@ export default async function handler(req, res) {
     // Handle PUT request
   } else if (req.method === "DELETE") {
     // Handle DELETE request
+  } else {
+    res.status(200).send({ status: false, message: "Authorization failed" });
   }
 }
