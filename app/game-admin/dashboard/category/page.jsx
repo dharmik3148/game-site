@@ -9,7 +9,8 @@ export const metadata = {
 
 const Category = async () => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/category`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/category`,
+    { headers: { "Cache-Control": "no-store" } }
   );
 
   return (

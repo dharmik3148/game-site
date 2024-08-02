@@ -1,5 +1,4 @@
 import "../admin.css";
-
 import LoginForm from "./LoginForm";
 
 export const metadata = {

@@ -9,7 +9,8 @@ export const metadata = {
 
 const GameType = async () => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/gametype`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/gametype`,
+    { headers: { "Cache-Control": "no-store" } }
   );
 
   return (

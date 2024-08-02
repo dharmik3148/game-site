@@ -5,7 +5,6 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { MdImageSearch } from "react-icons/md";
 import { toast } from "react-toastify";
 
 const Addcat = () => {
@@ -38,6 +37,7 @@ const Addcat = () => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
+          "Cache-Control": "no-store",
         },
       }
     );
@@ -51,6 +51,7 @@ const Addcat = () => {
     setPreview("");
     setName("");
 
+    router.push("/game-admin/dashboard/category", { scroll: false });
     router.refresh();
   };
 
@@ -91,10 +92,7 @@ const Addcat = () => {
               className="h-full w-full object-contain"
             />
           ) : (
-            <MdImageSearch
-              className="h-full w-full p-[70px] cursor-no-drop"
-              size={40}
-            />
+            <i className="bi bi-card-image flex h-full items-center justify-center text-[50px] cursor-no-drop"></i>
           )}
         </div>
       </div>

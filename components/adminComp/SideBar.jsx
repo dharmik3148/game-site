@@ -5,13 +5,6 @@ import { deleteCookie, getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import SideLink from "./SideLink";
-import { CgGames } from "react-icons/cg";
-import { AiFillHome } from "react-icons/ai";
-import { TbCategoryFilled } from "react-icons/tb";
-import { FaTag } from "react-icons/fa6";
-import { SiGoogleadsense } from "react-icons/si";
-import { MdPrivacyTip } from "react-icons/md";
-import { BsInfoCircleFill } from "react-icons/bs";
 import "./adminComp.css";
 
 import Link from "next/link";
@@ -32,7 +25,7 @@ const SideBar = () => {
     const res = await axios.delete(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/auth`,
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Cache-Control": "no-store" },
         data: { token, userId },
       }
     );
@@ -52,37 +45,61 @@ const SideBar = () => {
     deleteCookie("adminId");
   };
 
-  const sidelinks = [
+  const navLinks = [
     {
-      name: "Dashboard",
-      path: "/game-admin/dashboard",
-      icon: <AiFillHome />,
+      sectionName: "Manage Games",
+      links: [
+        {
+          name: "Dashboard",
+          path: "/game-admin/dashboard",
+          icon: "bi bi-speedometer",
+        },
+        {
+          name: "Games",
+          path: "/game-admin/dashboard/games",
+          icon: "bi bi-joystick",
+        },
+        {
+          name: "Category",
+          path: "/game-admin/dashboard/category",
+          icon: "bi bi-tag",
+        },
+        {
+          name: "Game-Type",
+          path: "/game-admin/dashboard/gametype",
+          icon: "bi bi-bar-chart-steps",
+        },
+        {
+          name: "Ads",
+          path: "/game-admin/dashboard/ads",
+          icon: "bi bi-badge-ad",
+        },
+      ],
     },
-    { name: "Games", path: "/game-admin/dashboard/games", icon: <CgGames /> },
     {
-      name: "Category",
-      path: "/game-admin/dashboard/category",
-      icon: <TbCategoryFilled />,
+      sectionName: "Pages",
+      links: [
+        {
+          name: "Privacy Policy",
+          path: "/game-admin/dashboard/privacy-policy",
+          icon: "bi bi-shield-check",
+        },
+        {
+          name: "About Us",
+          path: "/game-admin/dashboard/about-us",
+          icon: "bi bi-info-circle",
+        },
+      ],
     },
     {
-      name: "Game-Type",
-      path: "/game-admin/dashboard/gametype",
-      icon: <FaTag />,
-    },
-    {
-      name: "Ads",
-      path: "/game-admin/dashboard/ads",
-      icon: <SiGoogleadsense />,
-    },
-    {
-      name: "Privacy Policy",
-      path: "/game-admin/dashboard/privacy-policy",
-      icon: <MdPrivacyTip />,
-    },
-    {
-      name: "About Us",
-      path: "/game-admin/dashboard/about-us",
-      icon: <BsInfoCircleFill />,
+      sectionName: "Setting",
+      links: [
+        {
+          name: "ads.txt",
+          path: "/game-admin/dashboard/ads-txt",
+          icon: "bi bi-braces",
+        },
+      ],
     },
   ];
 
@@ -95,21 +112,31 @@ const SideBar = () => {
         >
           Admin
         </Link>
-        {sidelinks?.map((item, key) => {
+
+        {navLinks?.map((item, key) => {
           return (
-            <SideLink
-              key={key}
-              name={item.name}
-              path={item.path}
-              icon={item.icon}
-            />
+            <div key={key} className="flex flex-col gap-2">
+              <span className="bg-yellow-300 w-fit px-[10px] rounded-2xl text-[#2a2a2a] text-[13px]">
+                {item.sectionName}
+              </span>
+              {item?.links.map((lnk, key) => {
+                return (
+                  <SideLink
+                    key={key}
+                    name={lnk.name}
+                    path={lnk.path}
+                    icon={lnk.icon}
+                  />
+                );
+              })}
+            </div>
           );
         })}
       </div>
 
       <Link
         href={"/game-admin/dashboard/games/add-game"}
-        className="absolute bg-blue-500 bottom-[50px] left-0 right-0 m-2 h-[40px] border-[2px] border-[#2a2a2a] item-hover flex items-center justify-center"
+        className="absolute bg-blue-500 bottom-[50px] left-0 right-0 m-2 h-[40px] border-[2px] border-[#2a2a2a] item-hover flex gap-2 items-center justify-center"
       >
         Add Game
       </Link>

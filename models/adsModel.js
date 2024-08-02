@@ -6,7 +6,19 @@ module.exports = (seq, DT) => {
         type: DT.STRING,
         allowNull: false,
       },
-      ad_script: {
+      ad_client: {
+        type: DT.STRING,
+        allowNull: false,
+      },
+      ad_slot: {
+        type: DT.STRING,
+        allowNull: false,
+      },
+      ad_format: {
+        type: DT.STRING,
+        allowNull: false,
+      },
+      ad_fullWidthResponsive: {
         type: DT.STRING,
         allowNull: false,
       },

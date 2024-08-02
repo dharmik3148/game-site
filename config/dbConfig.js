@@ -52,7 +52,7 @@ db.game.belongsTo(db.game_type, { foreignKey: "game_typeId" });
 
 // ASSOCIATIONS END
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ alter: false }).then(() => {
   console.log("### RESYNCED ###");
 });
 

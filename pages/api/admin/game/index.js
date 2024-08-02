@@ -23,7 +23,6 @@ export default async function handler(req, res) {
       include: [
         {
           model: Ads,
-          attributes: ["ad_script"],
         },
         {
           model: Category,

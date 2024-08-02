@@ -15,6 +15,7 @@ const CatItem = ({ id, image, name }) => {
       {
         headers: {
           id,
+          "Cache-Control": "no-store",
         },
       }
     );
@@ -24,6 +25,7 @@ const CatItem = ({ id, image, name }) => {
     }
 
     toast.success(res.data.message);
+    router.push("/game-admin/dashboard/category", { scroll: false });
     router.refresh();
   };
 

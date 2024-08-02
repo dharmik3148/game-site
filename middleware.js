@@ -31,7 +31,7 @@ export async function middleware(request) {
 
     const res = await axios.get(
       `${process.env.NEXT_APP_BASE_URL}/api/admin/auth`,
-      { headers: { id, token } }
+      { headers: { id, token, "Cache-Control": "no-store" } }
     );
 
     if (res.data.status !== true) {

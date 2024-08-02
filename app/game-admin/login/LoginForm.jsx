@@ -4,7 +4,6 @@ import axios from "axios";
 import { getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const LoginForm = () => {
@@ -17,6 +16,7 @@ const LoginForm = () => {
   useEffect(() => {
     const token = getCookie("token");
     const id = getCookie("adminId");
+
     if (!token || !id) {
       return;
     }
@@ -25,16 +25,16 @@ const LoginForm = () => {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/auth`,
         {
-          headers: { id, token },
+          headers: { id, token, "Cache-Control": "no-store" },
         }
       );
-
       if (res.data.status !== true) {
         return toast.error(res.data.message);
-      } else {
-        router.push("/game-admin/dashboard");
-        toast.success("Logged in");
       }
+
+      router.push("/game-admin/dashboard");
+      router.refresh();
+      toast.success("Logged in");
     };
 
     auth();
@@ -48,7 +48,7 @@ const LoginForm = () => {
       { username, password },
       {
         headers: {
-          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
         },
       }
     );
@@ -91,19 +91,19 @@ const LoginForm = () => {
         />
 
         {isShow ? (
-          <FaEye
+          <i
             onClick={() => {
               setIsShow(!isShow);
             }}
-            className="text-gray-300 text-[17px] absolute top-[18px] right-[13px]"
-          />
+            className="bi bi-eye-fill text-green-500 cursor-pointer text-[17px] absolute top-[15px] right-[13px]"
+          ></i>
         ) : (
-          <FaEyeSlash
+          <i
             onClick={() => {
               setIsShow(!isShow);
             }}
-            className="text-gray-300 text-[17px] absolute top-[18px] right-[13px]"
-          />
+            className="bi bi-eye-slash-fill text-red-500 cursor-pointer text-[17px] absolute top-[15px] right-[13px]"
+          ></i>
         )}
       </div>
 

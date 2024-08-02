@@ -20,7 +20,6 @@
     "rand-token": "^1.0.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^5.2.1",
     "react-toastify": "^10.0.5",
     "sequelize": "^6.37.3",
     "unzipper": "^0.12.2"
