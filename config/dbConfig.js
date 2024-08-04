@@ -35,6 +35,7 @@ db.game_type = require("@/models/gametypeModel")(sequelize, DataTypes);
 db.game = require("@/models/gameModel")(sequelize, DataTypes);
 db.privacypolicy = require("@/models/privacyPolicyModel")(sequelize, DataTypes);
 db.aboutus = require("@/models/aboutUsModel")(sequelize, DataTypes);
+db.pageads = require("@/models/pageAdsModel")(sequelize, DataTypes);
 
 // ASSOCIATIONS START
 
@@ -49,6 +50,9 @@ db.game.belongsTo(db.category, { foreignKey: "categoryId" });
 
 db.game_type.hasMany(db.game, { foreignKey: "game_typeId" });
 db.game.belongsTo(db.game_type, { foreignKey: "game_typeId" });
+
+db.ad.hasMany(db.pageads, { foreignKey: "adId" });
+db.pageads.belongsTo(db.ad, { foreignKey: "adId" });
 
 // ASSOCIATIONS END
 

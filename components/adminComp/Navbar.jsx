@@ -14,7 +14,7 @@ const Navbar = () => {
             className="cursor-pointer mr-[10px]"
             onClick={() => router.back()}
           >
-            <i className="bi bi-arrow-left-circle-fill text-[25px]"></i>
+            <i className="bi bi-arrow-left-circle-fill text-[25px] flex"></i>
           </span>
         ) : (
           <></>
