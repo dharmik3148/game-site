@@ -1,10 +1,11 @@
-import db from "@/config/dbConfig";
-import { upload } from "@/helpers/gameUpload";
 import unzipper from "unzipper";
-import path from "path";
 import fs from "fs";
-import fsPromises from "fs/promises";
+import path from "path";
 import crypto from "crypto";
+import fsPromises from "fs/promises";
+import { gameUpload } from "@/helpers/gameUpload";
+
+const db = require("@/config/dbConfig");
 
 const Game = db.game;
 const Ads = db.ad;
@@ -35,23 +36,24 @@ export default async function handler(req, res) {
       ],
     });
 
-    return res.status(200).json(data);
+    return res.status(200).send(data);
   } else if (req.method === "POST") {
-    upload(req, res, async (err) => {
+    gameUpload()(req, res, async (err) => {
       if (err) {
-        return res.status(400).send({ error: err.message });
+        return res.status(200).send({ status: false, error: err.message });
       }
 
       const thumbnail = req.files.gm_thumbnail
         ? req.files.gm_thumbnail[0].filename
         : null;
+
       const gameFolder = req.files.gm_folder
         ? req.files.gm_folder[0].filename
         : null;
 
       const {
-        title,
         description,
+        title,
         played_count,
         page_title,
         meta_description,
@@ -67,6 +69,7 @@ export default async function handler(req, res) {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "")
         .trim();
+
       folderName = `${folderName}-${crypto.randomBytes(5).toString("hex")}`;
 
       try {
@@ -110,11 +113,11 @@ export default async function handler(req, res) {
           try {
             await fsPromises.unlink(zipPath);
           } catch (unlinkErr) {
-            res.status(500).send({
-              error: "Failed to delete the zip file",
+            return res.status(500).send({
+              status: false,
+              message: "Failed to delete the zip file",
               details: unlinkErr.message,
             });
-            return;
           }
         }
 
@@ -133,21 +136,24 @@ export default async function handler(req, res) {
           game_path: extractDirName,
         };
 
+        // Save the game record in the database
         const createdGame = await Game.create(game);
-        res.status(200).send(createdGame);
+
+        return res.status(200).send({
+          status: true,
+          message: "Game added successfully",
+          data: createdGame,
+        });
       } catch (unzipErr) {
-        // If unzip fails, send error response without attempting to delete the zip file
         res.status(500).send({
           error: "Failed to unzip the file",
           details: unzipErr.message,
         });
       }
     });
-  } else if (req.method === "PUT") {
-    // Handle PUT request
-  } else if (req.method === "DELETE") {
-    // Handle DELETE request
   } else {
-    res.status(200).send({ status: false, message: "Authorization failed" });
+    return res
+      .status(200)
+      .send({ status: false, message: "uthorization failed" });
   }
 }

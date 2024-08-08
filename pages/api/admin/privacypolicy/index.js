@@ -10,8 +10,9 @@ export default async function handler(req, res) {
     const ads = await PageAds.findOne({
       where: { page_type: pagetype },
       attributes: ["id", "page_type", "ad_status"],
-      include: [{ model: Ads }],
+      include: [{ model: Ads, attributes: ["id", "ad_name"] }],
     });
+
     const allAds = await Ads.findAll({ attributes: ["id", "ad_name"] });
     const data = await PrivacyPolicy.findAll({});
 

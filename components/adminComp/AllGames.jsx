@@ -34,7 +34,12 @@ const AllGames = () => {
         {games &&
           games?.map((item, key) => {
             return (
-              <div key={key} className="border-2 border-[#2a2a2a] p-[7px]">
+              <Link
+                href={item.game_path}
+                target="_blank"
+                key={key}
+                className="border-2 border-[#2a2a2a] p-[7px]"
+              >
                 <Image
                   src={item.thumbnail}
                   height={100}
@@ -45,7 +50,7 @@ const AllGames = () => {
                 <span className="flex item-center justify-center mt-2  border-t-2 border-[#2a2a2a]">
                   {item.title}
                 </span>
-              </div>
+              </Link>
             );
           })}
       </div>

@@ -9,50 +9,86 @@ function ensureDirectoryExists(dirPath) {
   }
 }
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    let uploadDir;
-    if (file.mimetype === "application/zip") {
-      uploadDir = "public/uploads/games";
-    } else if (
-      ["image/jpeg", "image/jpg", "image/png"].includes(file.mimetype)
-    ) {
-      uploadDir = "public/uploads/thumbnails";
-    } else {
-      return cb(new Error("Invalid file type"), null);
-    }
-    ensureDirectoryExists(uploadDir);
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    let prefix;
-    if (file.mimetype === "application/zip") {
-      const folderName = req.body.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "")
-        .trim();
+export function gameUpload() {
+  return (req, res, next) => {
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+        let uploadDir;
+        if (file.fieldname === "gm_thumbnail") {
+          uploadDir = "public/uploads/thumbnails";
+        } else if (file.fieldname === "gm_folder") {
+          uploadDir = "public/uploads/games";
+        } else {
+          return cb(new Error("Invalid file field"), false);
+        }
 
-      prefix = `${folderName}-${crypto.randomBytes(6).toString("hex")}`;
-    } else {
-      prefix = `IMG-${crypto.randomBytes(12).toString("hex")}`;
-    }
-    cb(null, `${prefix}${path.extname(file.originalname)}`);
-  },
-});
+        ensureDirectoryExists(uploadDir);
 
-const fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype === "application/zip" ||
-    ["image/jpeg", "image/jpg", "image/png"].includes(file.mimetype)
-  ) {
-    cb(null, true);
-  } else {
-    cb(new Error("Invalid file type"), false);
-  }
-};
+        cb(null, uploadDir);
+      },
+      filename: (req, file, cb) => {
+        let prefix;
+        if (file.fieldname === "gm_thumbnail") {
+          prefix = `IMG-${crypto.randomBytes(12).toString("hex")}`;
+        } else if (file.fieldname === "gm_folder") {
+          const folderName = req.body.title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "")
+            .trim();
 
-export const upload = multer({ storage, fileFilter }).fields([
-  { name: "gm_thumbnail", maxCount: 1 },
-  { name: "gm_folder", maxCount: 1 },
-]);
+          prefix = `${folderName}-${crypto.randomBytes(6).toString("hex")}`;
+        } else {
+          return cb(new Error("Invalid file field"), false);
+        }
+        cb(null, `${prefix}${path.extname(file.originalname)}`);
+      },
+    });
+
+    const upload = multer({
+      storage,
+      fileFilter: (req, file, cb) => {
+        if (file.fieldname === "gm_thumbnail") {
+          const allowedImageTypes = ["image/jpeg", "image/jpg", "image/png"];
+          if (allowedImageTypes.includes(file.mimetype)) {
+            cb(null, true);
+          } else {
+            cb(
+              new Error(
+                "Only .jpeg, .jpg, .png formats allowed for gm_thumbnail"
+              ),
+              false
+            );
+          }
+        } else if (file.fieldname === "gm_folder") {
+          if (
+            file.mimetype === "application/zip" ||
+            file.mimetype === "application/x-zip-compressed"
+          ) {
+            cb(null, true);
+          } else {
+            cb(new Error("Only .zip formats allowed for gm_folder"), false);
+          }
+        } else {
+          cb(new Error("Invalid file field"), false);
+        }
+      },
+    }).fields([
+      {
+        name: "gm_thumbnail",
+        maxCount: 1,
+      },
+      {
+        name: "gm_folder",
+        maxCount: 1,
+      },
+    ]);
+
+    upload(req, res, (err) => {
+      if (err) {
+        return res.status(400).send({ error: err.message });
+      }
+      next();
+    });
+  };
+}

@@ -20,11 +20,9 @@ const PrivacyPolicy = async () => {
     { headers: { pagetype, "Cache-Control": "no-store" } }
   );
 
-  console.log(res.data);
-
   return (
     <>
-      <PolicyAd ads={res.data.ads} />
+      <PolicyAd ads={res.data.ads} allAds={res.data.allAds} />
       <div className="grid grid-cols-2 gap-[10px]">
         <div className="col-span-1 border-2 border-dashed flex flex-col border-[#a5a5a5] p-[10px] gap-[10px]">
           <span className="bg-[#2a2a2a] flex p-[10px] text-[#ededed] items-center justify-center font-bold">

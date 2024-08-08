@@ -33,6 +33,7 @@ module.exports = (seq, DT) => {
       played_count: {
         type: DT.INTEGER,
         allowNull: false,
+        defaultValue: 1,
       },
       ad_status: {
         type: DT.BOOLEAN,

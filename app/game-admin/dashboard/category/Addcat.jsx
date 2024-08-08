@@ -43,7 +43,7 @@ const Addcat = () => {
     );
 
     if (res.data.status !== true) {
-      return toast.error(res.data.message);
+      return toast.error("adwdw" + res.data.message);
     }
 
     toast.success(res.data.message);
