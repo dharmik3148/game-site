@@ -1,5 +1,6 @@
 "use client";
 
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,12 +11,16 @@ const PolicyItem = ({ id, heading, content }) => {
 
   const router = useRouter();
 
+  const setLoader = useLoadingStore((state) => state.setLoading);
+
   const toggleAccordion = () => {
     setToggle(!toggle);
   };
 
   const handleDelete = async (e, id) => {
     e.stopPropagation();
+
+    setLoader(true);
 
     const res = await axios.delete(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/privacypolicy`,
@@ -26,6 +31,7 @@ const PolicyItem = ({ id, heading, content }) => {
     );
 
     if (res.data.status !== true) {
+      setLoader(false);
       return toast.error(res.data.message);
     }
 
@@ -33,6 +39,7 @@ const PolicyItem = ({ id, heading, content }) => {
 
     router.push("/game-admin/dashboard/privacy-policy", { scroll: false });
     router.refresh();
+    setLoader(false);
   };
 
   return (

@@ -1,5 +1,6 @@
 import db from "@/config/dbConfig";
 const Category = db.category;
+const Game = db.game;
 const { uploadSingle } = require("@/helpers/singleUpload");
 const fs = require("fs");
 const path = require("path");
@@ -48,6 +49,18 @@ export default async function handler(req, res) {
       return res
         .status(200)
         .send({ status: false, message: "Category not found" });
+    }
+
+    const associatedGames = await Game.findOne({
+      where: { categoryId: id },
+    });
+
+    if (associatedGames) {
+      return res.status(200).send({
+        status: false,
+        message:
+          "Cannot delete category, there are games associated with this category",
+      });
     }
 
     const filePath = path.join(

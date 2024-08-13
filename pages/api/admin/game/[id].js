@@ -26,7 +26,9 @@ export default async function handler(req, res) {
       ],
     });
 
-    if (!data) return res.status(400).send({ error: "No game found" });
+    if (!data) {
+      return res.status(200).send({ status: false, error: "No game found" });
+    }
 
     // data.played_count += 1;
 

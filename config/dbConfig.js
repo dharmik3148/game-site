@@ -42,16 +42,22 @@ db.pageads = require("@/models/pageAdsModel")(sequelize, DataTypes);
 db.user.hasMany(db.userSessions, { foreignKey: "userId" });
 db.userSessions.belongsTo(db.user, { foreignKey: "userId" });
 
-db.ad.hasMany(db.game, { foreignKey: "adId" });
+db.ad.hasMany(db.game, { foreignKey: "adId", onDelete: "RESTRICT" });
 db.game.belongsTo(db.ad, { foreignKey: "adId" });
 
-db.category.hasMany(db.game, { foreignKey: "categoryId" });
+db.category.hasMany(db.game, {
+  foreignKey: "categoryId",
+  onDelete: "RESTRICT",
+});
 db.game.belongsTo(db.category, { foreignKey: "categoryId" });
 
-db.game_type.hasMany(db.game, { foreignKey: "game_typeId" });
+db.game_type.hasMany(db.game, {
+  foreignKey: "game_typeId",
+  onDelete: "RESTRICT",
+});
 db.game.belongsTo(db.game_type, { foreignKey: "game_typeId" });
 
-db.ad.hasMany(db.pageads, { foreignKey: "adId" });
+db.ad.hasMany(db.pageads, { foreignKey: "adId", onDelete: "RESTRICT" });
 db.pageads.belongsTo(db.ad, { foreignKey: "adId" });
 
 // ASSOCIATIONS END

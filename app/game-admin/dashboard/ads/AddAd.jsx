@@ -1,5 +1,6 @@
 "use client";
 
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -14,6 +15,8 @@ const AddAd = () => {
 
   const router = useRouter();
 
+  const setLoader = useLoadingStore((state) => state.setLoading);
+
   const handleAddAd = async (e) => {
     e.preventDefault();
 
@@ -27,6 +30,8 @@ const AddAd = () => {
       return toast.warning("All fields are required");
     }
 
+    setLoader(true);
+
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ads`,
       { ad_name, ad_client, ad_slot, ad_format, ad_fullWidthResponsive },
@@ -34,10 +39,10 @@ const AddAd = () => {
     );
 
     if (res.data.status !== true) {
+      setLoader(false);
       return toast.error(res.data.message);
     }
 
-    toast.success(res.data.message);
     setAd_name("");
     setAd_client("");
     setAd_slot("");
@@ -46,6 +51,8 @@ const AddAd = () => {
 
     router.push("/game-admin/dashboard/ads", { scroll: false });
     router.refresh();
+    setLoader(false);
+    toast.success(res.data.message);
   };
 
   return (

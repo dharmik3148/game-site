@@ -5,11 +5,15 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import "./adminComp.css";
 import Link from "next/link";
+import useLoadingStore from "@/store/loadingStore";
 
 const AllGames = () => {
   const [games, setGames] = useState([]);
 
+  const setLoading = useLoadingStore((state) => state.setLoading);
+
   useEffect(() => {
+    setLoading(true);
     const fetchGames = async () => {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/game`,
@@ -17,6 +21,7 @@ const AllGames = () => {
       );
 
       setGames(res.data);
+      setLoading(false);
     };
 
     fetchGames();
@@ -26,6 +31,7 @@ const AllGames = () => {
     <div className="flex  flex-col">
       <Link
         href={"/game-admin/dashboard/games/add-game"}
+        onClick={() => setLoading(true)}
         className="w-fit py-[10px] px-[30px] mb-[10px] border-2 border-[#2a2a2a] bg-blue-500"
       >
         Add Game

@@ -1,5 +1,6 @@
 "use client";
 
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -8,6 +9,8 @@ import { toast } from "react-toastify";
 const AddPolicy = () => {
   const [heading, setHeading] = useState("");
   const [content, setContent] = useState("");
+
+  const setLoader = useLoadingStore((state) => state.setLoading);
 
   const router = useRouter();
 
@@ -18,6 +21,8 @@ const AddPolicy = () => {
       return toast.warning("All fields are required");
     }
 
+    setLoader(true);
+
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/privacypolicy`,
       { heading, content },
@@ -27,6 +32,7 @@ const AddPolicy = () => {
     );
 
     if (res.data.status !== true) {
+      setLoader(false);
       return toast.error(res.data.message);
     }
 
@@ -36,6 +42,7 @@ const AddPolicy = () => {
 
     router.push("/game-admin/dashboard/privacy-policy", { scroll: false });
     router.refresh();
+    setLoader(true);
   };
 
   return (

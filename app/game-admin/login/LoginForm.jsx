@@ -1,5 +1,6 @@
 "use client";
 
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import { getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
@@ -13,11 +14,14 @@ const LoginForm = () => {
 
   const router = useRouter();
 
+  const setLoading = useLoadingStore((state) => state.setLoading);
+
   useEffect(() => {
     const token = getCookie("token");
     const id = getCookie("adminId");
 
     if (!token || !id) {
+      setLoading(false);
       return;
     }
 
@@ -34,14 +38,19 @@ const LoginForm = () => {
 
       router.push("/game-admin/dashboard");
       router.refresh();
+
       toast.success("Logged in");
     };
 
     auth();
+
+    setLoading(true);
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/auth`,
@@ -63,11 +72,10 @@ const LoginForm = () => {
     setCookie("adminId", adminId, { maxAge: 24 * 60 * 60 });
 
     router.push("/game-admin/dashboard");
-
-    toast.success(res.data.message);
-
+    router.refresh();
     setUsername("");
     setPassword("");
+    toast.success(res.data.message);
   };
 
   return (

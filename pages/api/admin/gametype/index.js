@@ -1,6 +1,7 @@
 const db = require("@/config/dbConfig");
 const { uploadSingle } = require("@/helpers/singleUpload");
 const GameType = db.game_type;
+const Game = db.game;
 const fs = require("fs");
 const path = require("path");
 
@@ -50,6 +51,18 @@ export default async function handler(req, res) {
       return res
         .status(200)
         .send({ status: false, message: "Gametype not found" });
+    }
+
+    const associatedGames = await Game.findOne({
+      where: { game_typeId: id },
+    });
+
+    if (associatedGames) {
+      return res.status(200).send({
+        status: false,
+        message:
+          "Cannot delete gametype, there are games associated with this gametype",
+      });
     }
 
     const filePath = path.join(

@@ -8,17 +8,22 @@ import SideLink from "./SideLink";
 import "./adminComp.css";
 
 import Link from "next/link";
+import useLoadingStore from "@/store/loadingStore";
 
 const SideBar = () => {
   const router = useRouter();
+  const setLoading = useLoadingStore((state) => state.setLoading);
 
   const handleLogout = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const token = getCookie("token");
     const userId = getCookie("adminId");
 
     if (!token || !userId) {
+      setLoading(false);
       return toast.error("Authorization failed");
     }
 
@@ -31,6 +36,7 @@ const SideBar = () => {
     );
 
     if (res.data.status === false) {
+      setLoading(false);
       toast.error(res.data.message);
     }
 
@@ -107,6 +113,7 @@ const SideBar = () => {
     <section className="bg-[#ededed] absolute top-0 left-0 bottom-0 w-[15%] border-r-2 border-[#2a2a2a]">
       <div className="h-full flex flex-col p-2 gap-2">
         <Link
+          onClick={() => setLoading(true)}
           href={"/game-admin/dashboard"}
           className="border-b-[2px] border-[#2a2a2a] bg-[#2a2a2a] text-[#ededed] text-[25px] font-bold h-[50px] flex items-center justify-center rounded-none"
         >
@@ -136,6 +143,7 @@ const SideBar = () => {
 
       <Link
         href={"/game-admin/dashboard/games/add-game"}
+        onClick={() => setLoading(true)}
         className="absolute bg-blue-500 bottom-[50px] left-0 right-0 m-2 h-[40px] border-[2px] border-[#2a2a2a] item-hover flex gap-2 items-center justify-center"
       >
         Add Game

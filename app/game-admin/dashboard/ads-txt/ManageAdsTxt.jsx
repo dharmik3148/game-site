@@ -1,5 +1,6 @@
 "use client";
 
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,6 +11,8 @@ const ManageAdsTxt = () => {
   const router = useRouter();
 
   const [content, setContent] = useState("");
+
+  const setLoader = useLoadingStore((state) => state.setLoading);
 
   useEffect(() => {
     const fetch = async () => {
@@ -26,10 +29,13 @@ const ManageAdsTxt = () => {
     };
 
     fetch();
+    setLoader(false);
   }, []);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    setLoader(true);
 
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/adstxt`,
@@ -38,6 +44,7 @@ const ManageAdsTxt = () => {
     );
 
     if (res.data.status !== true) {
+      setLoader(false);
       return toast.error(res.data.message);
     }
 
@@ -45,6 +52,7 @@ const ManageAdsTxt = () => {
 
     router.push("/game-admin/dashboard/ads-txt");
     router.refresh();
+    setLoader(false);
   };
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import { UploadSVG } from "@/components/adminComp/SVG";
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,6 +15,8 @@ const Addcat = () => {
 
   const router = useRouter();
 
+  const setLoading = useLoadingStore((state) => state.setLoading);
+
   const handleChange = (e) => {
     const file = e.target.files[0];
     setFile(file);
@@ -26,6 +29,8 @@ const Addcat = () => {
     if (!name || !file) {
       return toast.warning("All fields are required");
     }
+
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("cat_img", file);
@@ -46,13 +51,15 @@ const Addcat = () => {
       return toast.error("adwdw" + res.data.message);
     }
 
-    toast.success(res.data.message);
     setFile(null);
     setPreview("");
     setName("");
 
     router.push("/game-admin/dashboard/category", { scroll: false });
     router.refresh();
+
+    setLoading(false);
+    toast.success(res.data.message);
   };
 
   return (

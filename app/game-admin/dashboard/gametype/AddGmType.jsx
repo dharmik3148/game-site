@@ -1,6 +1,7 @@
 "use client";
 
 import { UploadSVG } from "@/components/adminComp/SVG";
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,6 +12,8 @@ const AddGmType = () => {
   const [name, setName] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState("");
+
+  const setLoader = useLoadingStore((state) => state.setLoading);
 
   const router = useRouter();
 
@@ -23,7 +26,10 @@ const AddGmType = () => {
   const handleAddGmType = async (e) => {
     e.preventDefault();
 
+    setLoader(true);
+
     if (!name || !file) {
+      setLoader(false);
       return toast.warning("All fields are required");
     }
 
@@ -43,16 +49,18 @@ const AddGmType = () => {
     );
 
     if (res.data.status !== true) {
+      setLoader(false);
       return toast.error(res.data.message);
     }
 
-    toast.success(res.data.message);
     setFile(null);
     setPreview("");
     setName("");
 
     router.push("/game-admin/dashboard/gametype", { scroll: false });
     router.refresh();
+    setLoader(false);
+    toast.success(res.data.message);
   };
 
   return (

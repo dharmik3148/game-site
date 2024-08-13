@@ -1,10 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import useLoadingStore from "@/store/loadingStore";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const AboutAd = ({ ads, allAds }) => {
   const [isChecked, setIsChecked] = useState(ads.ad_status);
+
+  const setLoader = useLoadingStore((state) => state.setLoading);
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();

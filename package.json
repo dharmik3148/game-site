@@ -22,7 +22,8 @@
     "react-dom": "^18",
     "react-toastify": "^10.0.5",
     "sequelize": "^6.37.3",
-    "unzipper": "^0.12.2"
+    "unzipper": "^0.12.2",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "eslint": "^8",

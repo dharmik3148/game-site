@@ -1,13 +1,20 @@
 "use client";
 
+import useLoadingStore from "@/store/loadingStore";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const PolicyAd = ({ ads, allAds }) => {
   const [isChecked, setIsChecked] = useState(ads.ad_status);
 
   const router = useRouter();
+
+  const setLoader = useLoadingStore((state) => state.setLoading);
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();

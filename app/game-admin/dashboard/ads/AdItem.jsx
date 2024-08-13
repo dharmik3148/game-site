@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import useLoadingStore from "@/store/loadingStore";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { toast } from "react-toastify";
 
@@ -12,15 +15,42 @@ const AdItem = ({
   ad_format,
   ad_fullWidthResponsive,
 }) => {
+  const router = useRouter();
   const [toggle, setToggle] = useState(false);
+
+  const setLoader = useLoadingStore((state) => state.setLoading);
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
 
   const toggleAccordion = () => {
     setToggle(!toggle);
   };
 
-  const handleDelete = async (e) => {
+  const handleDelete = async (e, id) => {
     e.stopPropagation();
-    toast.error("dbawh");
+
+    setLoader(true);
+
+    const res = await axios.delete(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ads`,
+      {
+        headers: {
+          id,
+          "Cache-Control": "no-store",
+        },
+      }
+    );
+    if (res.data.status !== true) {
+      setLoader(false);
+      return toast.error(res.data.message);
+    }
+
+    toast.success(res.data.message);
+    router.push("/game-admin/dashboard/ads", { scroll: false });
+    router.refresh();
+    setLoader(true);
   };
 
   return (
@@ -37,12 +67,12 @@ const AdItem = ({
           <div className="flex gap-[25px] items-center">
             <i
               className="bi bi-trash-fill text-red-500 cursor-pointer flex text-[18px]"
-              onClick={handleDelete}
+              onClick={(e) => handleDelete(e, id)}
             ></i>
 
             <i
               className="bi bi-pencil-square text-yellow-500 cursor-pointer flex text-[18px]"
-              onClick={handleDelete}
+              // onClick={"daw"}
             ></i>
 
             <svg

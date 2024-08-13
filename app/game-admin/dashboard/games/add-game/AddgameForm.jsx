@@ -1,12 +1,13 @@
 "use client";
 
 import { ImageUpload } from "@/components/adminComp/SVG";
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const AddgameForm = ({ dropData }) => {
@@ -28,6 +29,12 @@ const AddgameForm = ({ dropData }) => {
 
   const [pagetitle, setpagetitle] = useState("");
   const [metadescription, setmetadescription] = useState("");
+
+  const setLoader = useLoadingStore((state) => state.setLoading);
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -52,6 +59,8 @@ const AddgameForm = ({ dropData }) => {
     ) {
       return toast.warning("All fields are required");
     }
+
+    setLoader(true);
 
     try {
       const fromData = new FormData();
@@ -80,13 +89,16 @@ const AddgameForm = ({ dropData }) => {
         }
       );
       if (res.data.status !== true) {
+        setLoader(false);
         return toast.error(res.data.message);
       }
 
-      toast.success(res.data.message);
       router.push("/game-admin/dashboard/games");
       router.refresh();
+      setLoader(false);
+      toast.success(res.data.message);
     } catch (error) {
+      setLoader(false);
       console.error("Error submitting form:", error);
     }
   };

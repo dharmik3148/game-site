@@ -1,9 +1,12 @@
+import useLoadingStore from "@/store/loadingStore";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 const SideLink = ({ name, path, icon }) => {
   const pathname = usePathname();
+
+  const setLoading = useLoadingStore((state) => state.setLoading);
 
   const isActive = pathname === path;
   return (
@@ -15,6 +18,7 @@ const SideLink = ({ name, path, icon }) => {
           isActive ? "bg-[#2a2a2a] text-[#ededed]" : ""
         }`}
         prefetch={false}
+        onClick={() => setLoading(true)}
       >
         {name}
         <i className={`${icon} text-[20px] flex`}></i>
