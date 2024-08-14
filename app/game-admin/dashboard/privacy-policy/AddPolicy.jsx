@@ -42,7 +42,7 @@ const AddPolicy = () => {
 
     router.push("/game-admin/dashboard/privacy-policy", { scroll: false });
     router.refresh();
-    setLoader(true);
+    setLoader(false);
   };
 
   return (

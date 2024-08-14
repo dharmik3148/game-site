@@ -63,6 +63,7 @@ const LoginForm = () => {
     );
 
     if (res.data.status !== true) {
+      setLoading(false);
       return toast.error(res.data.message);
     }
 

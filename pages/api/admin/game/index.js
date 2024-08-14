@@ -151,6 +151,9 @@ export default async function handler(req, res) {
         });
       }
     });
+  } else if (req.method === "PATCH") {
+    const { ad_status, game_status } = req.body;
+    return res.status(200).send({ status: true });
   } else {
     return res
       .status(200)

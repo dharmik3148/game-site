@@ -2,6 +2,7 @@
 
 import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -60,10 +61,12 @@ const PolicyItem = ({ id, heading, content }) => {
               onClick={(e) => handleDelete(e, id)}
             ></i>
 
-            <i
-              className="bi bi-pencil-square text-yellow-500 cursor-pointer flex text-[18px]"
-              onClick={handleDelete}
-            ></i>
+            <Link
+              href={`/game-admin/dashboard/privacy-policy/${id}`}
+              onClick={() => setLoader(true)}
+            >
+              <i className="bi bi-pencil-square text-yellow-500 cursor-pointer flex text-[18px]"></i>
+            </Link>
 
             <svg
               data-accordion-icon

@@ -2,6 +2,7 @@
 
 import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -50,7 +51,7 @@ const AdItem = ({
     toast.success(res.data.message);
     router.push("/game-admin/dashboard/ads", { scroll: false });
     router.refresh();
-    setLoader(true);
+    setLoader(false);
   };
 
   return (
@@ -70,10 +71,12 @@ const AdItem = ({
               onClick={(e) => handleDelete(e, id)}
             ></i>
 
-            <i
-              className="bi bi-pencil-square text-yellow-500 cursor-pointer flex text-[18px]"
-              // onClick={"daw"}
-            ></i>
+            <Link
+              href={`/game-admin/dashboard/ads/${id}`}
+              onClick={() => setLoader(true)}
+            >
+              <i className="bi bi-pencil-square text-yellow-500 cursor-pointer flex text-[18px]"></i>
+            </Link>
 
             <svg
               data-accordion-icon

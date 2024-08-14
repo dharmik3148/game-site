@@ -60,6 +60,7 @@ const CatItem = ({ id, image, name }) => {
         <Link
           className="bg-yellow-500 px-[8px] border-2 border-[#2a2a2a] flex items-center justify-center"
           href={`/game-admin/dashboard/category/${id}`}
+          onClick={() => setLoader(true)}
         >
           Edit
         </Link>
