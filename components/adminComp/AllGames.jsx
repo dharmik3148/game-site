@@ -126,7 +126,7 @@ const AllGames = () => {
             <th>Ad Show</th>
             <th>Game Show</th>
             <th>Edit</th>
-            <th>DELETE</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody className="">

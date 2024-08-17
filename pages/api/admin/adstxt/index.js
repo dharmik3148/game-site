@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     fs.readFile(adsTxtPath, "utf8", (err, data) => {
       if (err) {
         if (err.code === "ENOENT") {
-          const defaultAdsTxtContent = "";
+          const defaultAdsTxtContent = "WRITE HERE";
           fs.writeFile(adsTxtPath, defaultAdsTxtContent, "utf8", (writeErr) => {
             if (writeErr) {
               return res
