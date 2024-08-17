@@ -7,6 +7,7 @@ import "./adminComp.css";
 import Link from "next/link";
 import useLoadingStore from "@/store/loadingStore";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const AllGames = () => {
   const [games, setGames] = useState([]);
@@ -14,12 +15,10 @@ const AllGames = () => {
 
   const setLoading = useLoadingStore((state) => state.setLoading);
 
-  const handleToggle = (isChecked) => {
-    return toast.info(`${isChecked ? "True" : "False"}`);
-  };
+  const router = useRouter();
 
   const fetchGames = async (term = "") => {
-    if (!term) setLoading(true);
+    // if (!term) setLoading(true);
     try {
       const url = term
         ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/game/search-game`
@@ -41,6 +40,31 @@ const AllGames = () => {
       toast.error("An error occurred while fetching the games.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleToggle = async (gameId, adShow, gameShow) => {
+    try {
+      const res = await axios.patch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/game?id=${gameId}&ad_show=${adShow}&game_show=${gameShow}`,
+        {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
+      );
+
+      if (res.data.status === false) {
+        return toast.error(res.data.error);
+      }
+
+      fetchGames(searchTerm);
+
+      router.push("/game-admin/dashboard/games");
+      router.refresh();
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
@@ -112,7 +136,9 @@ const AllGames = () => {
                       <input
                         type="checkbox"
                         checked={item.ad_status}
-                        onChange={(e) => handleToggle(e.target.checked)}
+                        onChange={(e) =>
+                          handleToggle(item.id, e.target.checked, "")
+                        }
                       />
                       <span className="flex"></span>
                     </label>
@@ -122,7 +148,9 @@ const AllGames = () => {
                       <input
                         type="checkbox"
                         checked={item.game_status}
-                        // onChange={(e) => setadStatus(e.target.checked)}
+                        onChange={(e) =>
+                          handleToggle(item.id, "", e.target.checked)
+                        }
                       />
                       <span className="flex"></span>
                     </label>

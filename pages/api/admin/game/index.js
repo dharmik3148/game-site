@@ -152,11 +152,35 @@ export default async function handler(req, res) {
       }
     });
   } else if (req.method === "PATCH") {
-    const { ad_status, game_status } = req.body;
-    return res.status(200).send({ status: true });
+    const { id, ad_show, game_show } = req.query;
+
+    const game = await Game.findOne({ where: { id } });
+
+    if (!game) {
+      return res.status(200).send({ status: false, message: "Game not found" });
+    }
+
+    const toBeUpdated = {};
+
+    toBeUpdated.ad_status =
+      ad_show === "true" ? true : ad_show === "false" ? false : game.ad_status;
+
+    toBeUpdated.game_status =
+      game_show === "true"
+        ? true
+        : game_show === "false"
+        ? false
+        : game.game_status;
+
+    await game.update(toBeUpdated);
+
+    return res.status(200).send({
+      status: true,
+      message: "Updated successfully",
+    });
   } else {
     return res
       .status(200)
-      .send({ status: false, message: "uthorization failed" });
+      .send({ status: false, message: "Authorization failed" });
   }
 }

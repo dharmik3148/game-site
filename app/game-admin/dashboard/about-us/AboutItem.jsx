@@ -41,7 +41,7 @@ const AboutItem = ({ id, heading, content }) => {
     router.push("/game-admin/dashboard/about-us", { scroll: false });
     router.refresh();
 
-    setLoader(true);
+    setLoader(false);
   };
 
   return (

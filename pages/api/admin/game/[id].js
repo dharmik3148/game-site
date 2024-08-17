@@ -45,14 +45,13 @@ export default async function handler(req, res) {
 
     await data.save();
 
-    return res
-      .status(200)
-      .json({
-        status: true,
-        message: "Game entry found",
-        game: data,
-        groundData: { ads, category, gametype },
-      });
+    return res.status(200).json({
+      status: true,
+      message: "Game entry found",
+      game: data,
+      groundData: { ads, category, gametype },
+    });
+  } else if (req.method === "PATCH") {
   } else {
     return res
       .status(200)

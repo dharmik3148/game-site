@@ -1,12 +1,14 @@
 "use client";
 
 import useLoadingStore from "@/store/loadingStore";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const PolicyAd = ({ ads, allAds }) => {
   const [isChecked, setIsChecked] = useState(ads.ad_status);
+  const [selectedAd, setSelectedAd] = useState(ads.ad?.id || "null");
 
   const router = useRouter();
 
@@ -16,14 +18,40 @@ const PolicyAd = ({ ads, allAds }) => {
     setLoader(false);
   }, []);
 
-  const handleChange = (e) => {
-    e.preventDefault();
+  const updateAdSettings = async (adStatus, adId) => {
+    try {
+      const res = await axios.patch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/pageads`,
+        { pagetype: "privacy-policy", ad_status: adStatus, ad_id: adId },
+        {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
+      );
 
-    const id = e.target.value;
+      if (res.data.status !== true) {
+        throw new Error(res.data.message);
+      }
 
-    toast.success(id);
-    // router.push("/game-admin/dashboard/privacy-policy");
-    // router.refresh();
+      router.push("/game-admin/dashboard/privacy-policy");
+      router.refresh();
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleCheckboxChange = (e) => {
+    const newStatus = e.target.checked;
+    setIsChecked(newStatus);
+    updateAdSettings(newStatus, selectedAd);
+  };
+
+  const handleSelectChange = (e) => {
+    const newAdId = e.target.value;
+    setSelectedAd(newAdId);
+    updateAdSettings(isChecked, newAdId);
   };
 
   return (
@@ -34,7 +62,7 @@ const PolicyAd = ({ ads, allAds }) => {
           <input
             type="checkbox"
             checked={isChecked}
-            onChange={(e) => setIsChecked(e.target.checked)}
+            onChange={handleCheckboxChange}
           />
           <span className="flex"></span>
         </label>
@@ -51,7 +79,8 @@ const PolicyAd = ({ ads, allAds }) => {
         <span className="text-[#979c97]">Select an Ad : </span>
         {allAds.length > 0 ? (
           <select
-            onChange={handleChange}
+            value={selectedAd}
+            onChange={handleSelectChange}
             className=" rounded-full p-[10px] focus:outline-none bg-inherit border-2 border-[#2a2a2a]"
           >
             <option value="null">None</option>
