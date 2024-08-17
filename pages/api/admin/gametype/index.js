@@ -16,6 +16,7 @@ const uploadMiddleware = uploadSingle("gametype", "gametype_img");
 export default async function handler(req, res) {
   if (req.method === "GET") {
     const data = await GameType.findAll({});
+
     return res.status(200).send(data);
   } else if (req.method === "POST") {
     uploadMiddleware(req, res, async () => {

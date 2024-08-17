@@ -17,23 +17,45 @@ export default async function handler(req, res) {
         },
         {
           model: Category,
-          attributes: ["category_name", "category_img"],
+          attributes: ["id", "category_name"],
         },
         {
           model: GameType,
-          attributes: ["name", "type_img"],
+          attributes: ["id", "name"],
         },
       ],
     });
 
     if (!data) {
-      return res.status(200).send({ status: false, error: "No game found" });
+      return res.status(200).send({
+        status: false,
+        error: "No game found",
+      });
     }
 
-    // data.played_count += 1;
+    const ads = await Ads.findAll({ attributes: ["id", "ad_name"] });
+    const category = await Category.findAll({
+      attributes: ["id", "category_name"],
+    });
+    const gametype = await GameType.findAll({
+      attributes: ["id", "name"],
+    });
 
-    // await data.save();
+    data.played_count += 1;
 
-    return res.status(200).json({ status: true, data });
+    await data.save();
+
+    return res
+      .status(200)
+      .json({
+        status: true,
+        message: "Game entry found",
+        game: data,
+        groundData: { ads, category, gametype },
+      });
+  } else {
+    return res
+      .status(200)
+      .send({ status: false, message: "Authorization failed" });
   }
 }

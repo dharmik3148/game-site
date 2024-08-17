@@ -128,7 +128,10 @@ const AllGames = () => {
                     </label>
                   </td>
                   <td className="py-1 text-center">
-                    <Link href={item.game_path} target="_blank">
+                    <Link
+                      href={`/game-admin/dashboard/games/${item.id}`}
+                      onClick={() => setLoading(true)}
+                    >
                       <i className="bi bi-pencil-square text-[25px] text-yellow-500 p-[5px] cursor-pointer"></i>
                     </Link>
                   </td>

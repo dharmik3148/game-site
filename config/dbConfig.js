@@ -8,7 +8,7 @@ const sequelize = new Sequelize("game-site", "root", "", {
     freezeTableName: true,
   },
   pool: {
-    max: 10,
+    max: 5,
     min: 0,
     acquire: 30000,
     idle: 10000,

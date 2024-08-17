@@ -46,10 +46,7 @@ export async function middleware(request) {
 
 const goto = (path, request) => {
   const response = NextResponse.redirect(new URL(path, request.url));
-  response.headers.set(
-    "Cache-Control",
-    "no-store, no-cache, must-revalidate, proxy-revalidate"
-  );
+  response.headers.set("Cache-Control", "no-store");
   return response;
 };
 
