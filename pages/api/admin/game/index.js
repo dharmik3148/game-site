@@ -1,7 +1,6 @@
 import unzipper from "unzipper";
 import fs from "fs";
 import path from "path";
-import crypto from "crypto";
 import fsPromises from "fs/promises";
 import { gameUpload } from "@/helpers/gameUpload";
 
@@ -63,14 +62,6 @@ export default async function handler(req, res) {
         categoryId,
         game_typeId,
       } = req.body;
-
-      let folderName = title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "")
-        .trim();
-
-      folderName = `${folderName}-${crypto.randomBytes(5).toString("hex")}`;
 
       try {
         let extractDirName;

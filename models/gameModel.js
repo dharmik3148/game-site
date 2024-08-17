@@ -30,6 +30,18 @@ module.exports = (seq, DT) => {
             : null;
         },
       },
+      game_folder: {
+        type: DT.VIRTUAL,
+        get() {
+          return this.getDataValue("game_path");
+        },
+      },
+      thumbnail_path: {
+        type: DT.VIRTUAL,
+        get() {
+          return this.getDataValue("thumbnail");
+        },
+      },
       played_count: {
         type: DT.INTEGER,
         allowNull: false,

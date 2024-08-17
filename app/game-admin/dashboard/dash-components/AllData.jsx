@@ -11,7 +11,7 @@ const AllData = ({ data }) => {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 gap-[10px]">
+    <div className="grid grid-cols-4 gap-[10px] mb-[10px]">
       <div className="col-span-1 flex items-center justify-between p-[10px] item-hover border-2 border-[#2a2a2a] bg-red-200">
         <i className="bi bi-joystick text-[25px]"> Games</i>
         <span className="text-[50px] font-extrabold">{data.games}</span>

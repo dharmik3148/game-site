@@ -68,6 +68,32 @@ const AllGames = () => {
     }
   };
 
+  const handleDeleteGame = async (e, id) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const res = await axios.delete(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/game/${id}`,
+      {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      }
+    );
+
+    if (res.data.status !== true) {
+      setLoading(false);
+      return toast.error(res.data.message);
+    }
+
+    fetchGames(searchTerm);
+    router.push("/game-admin/dashboard/games");
+    router.refresh();
+    toast.success(res.data.message);
+    setLoading(false);
+  };
+
   useEffect(() => {
     fetchGames(searchTerm);
   }, [searchTerm]);
@@ -100,6 +126,7 @@ const AllGames = () => {
             <th>Ad Show</th>
             <th>Game Show</th>
             <th>Edit</th>
+            <th>DELETE</th>
           </tr>
         </thead>
         <tbody className="">
@@ -160,15 +187,21 @@ const AllGames = () => {
                       href={`/game-admin/dashboard/games/${item.id}`}
                       onClick={() => setLoading(true)}
                     >
-                      <i className="bi bi-pencil-square text-[25px] text-yellow-500 p-[5px] cursor-pointer"></i>
+                      <i className="bi bi-pencil-square text-[25px] text-yellow-600 p-[5px] cursor-pointer"></i>
                     </Link>
+                  </td>
+                  <td className="py-1 text-center">
+                    <i
+                      className="bi bi-trash3-fill text-[25px] text-red-600 p-[5px] cursor-pointer"
+                      onClick={(e) => handleDeleteGame(e, item.id)}
+                    ></i>
                   </td>
                 </tr>
               );
             })
           ) : (
             <tr className="text-center text-[20px] text-red-500 bg-gray-300">
-              <td colSpan="7">No Games Found</td>
+              <td colSpan="8">No Games Found</td>
             </tr>
           )}
         </tbody>

@@ -53,9 +53,9 @@ const AddgameForm = ({ dropData }) => {
       !count ||
       !pagetitle ||
       !metadescription ||
-      !adId ||
-      !categoryId ||
-      !gametypeid
+      adId === "null" ||
+      categoryId === "null" ||
+      gametypeid === "null"
     ) {
       return toast.warning("All fields are required");
     }
@@ -63,24 +63,24 @@ const AddgameForm = ({ dropData }) => {
     setLoader(true);
 
     try {
-      const fromData = new FormData();
+      const formData = new FormData();
 
-      fromData.append("title", title);
-      fromData.append("description", description);
-      fromData.append("gm_thumbnail", thumbnail);
-      fromData.append("gm_folder", gamezip);
-      fromData.append("played_count", count);
-      fromData.append("page_title", pagetitle);
-      fromData.append("meta_description", metadescription);
-      fromData.append("game_status", gameStatus);
-      fromData.append("ad_status", adStatus);
-      fromData.append("adId", adId);
-      fromData.append("categoryId", categoryId);
-      fromData.append("game_typeId", gametypeid);
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("gm_thumbnail", thumbnail);
+      formData.append("gm_folder", gamezip);
+      formData.append("played_count", count);
+      formData.append("page_title", pagetitle);
+      formData.append("meta_description", metadescription);
+      formData.append("game_status", gameStatus);
+      formData.append("ad_status", adStatus);
+      formData.append("adId", adId);
+      formData.append("categoryId", categoryId);
+      formData.append("game_typeId", gametypeid);
 
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/game`,
-        fromData,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -349,6 +349,8 @@ const AddgameForm = ({ dropData }) => {
               />
             </div>
           </div>
+
+          {/*  */}
         </div>
       </div>
       <button
