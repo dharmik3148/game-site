@@ -1,7 +1,14 @@
-import { Inter } from "next/font/google";
+import { Inter, Nunito } from "next/font/google";
 import "./globals.css";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navbar from "@/components/clientComp/Navbar";
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "600", "700", "800", "900"],
+  variable: "--font-nunito",
+});
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +25,13 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${nunito.variable} bg-smokeBlack `}>
+        <Navbar />
         {children}
 
         <ToastContainer

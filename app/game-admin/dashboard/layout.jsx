@@ -7,16 +7,16 @@ import { Suspense } from "react";
 import Loading from "./loding";
 import useLoadingStore from "@/store/loadingStore";
 
-export default function RootLayout({ children }) {
+export default function DashboardLayout({ children }) {
   const isLoading = useLoadingStore((state) => state.isLoading);
 
   return (
     <>
-      <div className="relative bg-[#ededed] min-h-screen">
+      <div className="relative bg-[#ededed] min-h-screen z-20">
         <Navbar />
         <SideBar />
 
-        <div className="absolute top-[60px] left-[15%] right-0 bottom-0 p-[10px] overflow-y-scroll no-scrollbar">
+        <div className="absolute top-[60px] left-[15%]  right-0 bottom-0 p-[10px] overflow-y-scroll no-scrollbar">
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
 

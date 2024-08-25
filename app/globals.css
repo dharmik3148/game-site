@@ -1,3 +1,88 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Optional: prevents scrollbars from appearing */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/backgroundImage.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(15px);
+  z-index: -1;
+}
+
+.font-nunito {
+  font-family: var(--font-nunito);
+}
+
+/* TEXT HOVER SLIDE EFFECT START */
+.hoverDiv {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease-out;
+}
+
+/* Custom CSS for the span */
+.slideSpan {
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+/* Hover effect */
+.hoverDiv:hover .slideSpan {
+  transform: translateX(3px);
+  color: #ffd60a;
+}
+/* TEXT HOVER SLIDE EFFECT END */
+
+/* SCROLLBAR CUSTOM START */
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #8c8d96; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; /* Background of the scrollbar track */
+  }
+
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .custom-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #8c8d96 transparent; /* Firefox */
+  }
+}
+/* SCROLLBAR CUSTOM END */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #8c8d96;
+  /* Rounded corners */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
