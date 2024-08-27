@@ -11,15 +11,21 @@ import {
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import useLoadingStore from "@/store/loadingStore";
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [categories, setcategories] = useState([]);
 
+  const setLoading = useLoadingStore((state) => state.setLoading);
+
   useEffect(() => {
     const fetchCategory = async () => {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/client/category`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/client/category`,
+        {
+          headers: { "Cache-Control": "no-store" },
+        }
       );
       setcategories(res.data.data);
     };
@@ -35,7 +41,9 @@ const Navbar = () => {
         >
           {isSidebarOpen ? <SVGCloseMenu /> : <SVGMenuIcon />}
         </div>
-        <Link href={"/"}>Popy Games</Link>
+        <Link href={"/"} onClick={() => setIsSidebarOpen(false)}>
+          Popy Games
+        </Link>
       </header>
       {isSidebarOpen && (
         <div
@@ -51,7 +59,9 @@ const Navbar = () => {
         <div className="p-[10px] mt-[10px] flex flex-col gap-[10px]">
           <Link
             href={"/"}
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            onClick={() => {
+              setIsSidebarOpen(false);
+            }}
             className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
           >
             <SVGHomeIcon />
@@ -61,7 +71,14 @@ const Navbar = () => {
           {categories &&
             categories.map((item, key) => {
               return (
-                <div
+                <Link
+                  href={`${process.env.NEXT_PUBLIC_BASE_URL}/category/${
+                    item.id
+                  }?name=${item.category_name.toLowerCase()}`}
+                  onClick={() => {
+                    setIsSidebarOpen(false);
+                    setLoading(true);
+                  }}
                   className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
                   key={key}
                 >
@@ -73,27 +90,37 @@ const Navbar = () => {
                     className="pointer-events-none"
                   />
                   <span className="slideSpan">{item.category_name}</span>
-                </div>
+                </Link>
               );
             })}
           <hr className="border-deviderGray" />
 
           <Link
             href={"about-us"}
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            onClick={() => {
+              setIsSidebarOpen(false);
+              setLoading(true);
+            }}
             className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
           >
             <SVGAboutUsIcon />
             <span className="slideSpan">About Us</span>
           </Link>
-          <div className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv">
+          <Link
+            href={"privacy-policy"}
+            onClick={() => {
+              setIsSidebarOpen(false);
+              setLoading(true);
+            }}
+            className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
+          >
             <SVGPrivacyPolicyIcon />
             <span className="slideSpan">Privacy Policy</span>
-          </div>
+          </Link>
         </div>
 
         <span className="flex items-center justify-center text-siteDarkYellow font-nunito text-[12px] mt-[50px]">
-          © 2024 PopyGames
+          &copy; 2024 PopyGames
         </span>
       </nav>
     </>

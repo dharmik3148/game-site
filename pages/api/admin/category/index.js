@@ -28,6 +28,16 @@ export default async function handler(req, res) {
       const { category_name } = req.body;
 
       try {
+        // BELOW CODE WROTE TO MATCH CAT_NAME BEFORE CREATEING BUT LATER DECIDED TO SEARCH WIT ID NOT BY NAME
+        // const findCat = await Category.findOne({ where: { category_name } });
+
+        // if (findCat) {
+        //   return res.status(200).send({
+        //     status: false,
+        //     message: `${category_name} already available`,
+        //   });
+        // }
+
         const category = await Category.create({
           category_name: category_name.trim(),
           category_img: req.file.filename,
@@ -37,7 +47,7 @@ export default async function handler(req, res) {
           .status(200)
           .send({ status: true, message: "New category added", category });
       } catch (error) {
-        return res.status(500).send({ status: false, message: error.message });
+        return res.status(200).send({ status: false, message: error.message });
       }
     });
   } else if (req.method === "DELETE") {

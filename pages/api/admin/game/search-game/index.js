@@ -19,11 +19,13 @@ export default async function handler(req, res) {
             { played_count: { [Op.like]: `%${searchTerm}%` } },
             { page_title: { [Op.like]: `%${searchTerm}%` } },
             { meta_description: { [Op.like]: `%${searchTerm}%` } },
+            { "$Category.category_name$": { [Op.like]: `%${searchTerm}%` } },
           ],
         },
         include: [
           {
             model: Ads,
+            attributes: ["ad_name"],
           },
           {
             model: Category,
@@ -31,7 +33,7 @@ export default async function handler(req, res) {
           },
           {
             model: GameType,
-            attributes: ["name", "type_img"],
+            attributes: ["name"],
           },
         ],
       });
@@ -45,6 +47,7 @@ export default async function handler(req, res) {
 
       return res.status(200).send({ status: true, games });
     } catch (error) {
+      console.log(error.message);
       return res.status(200).send({ status: false, messgae: error.message });
     }
   } else {

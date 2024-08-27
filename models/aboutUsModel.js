@@ -7,7 +7,7 @@ module.exports = (seq, DT) => {
         allowNull: false,
       },
       content: {
-        type: DT.STRING,
+        type: DT.TEXT("long"),
         allowNull: false,
       },
     },

@@ -10,7 +10,10 @@ const HomePage = () => {
   useEffect(() => {
     const fetchGames = async () => {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/client/games`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/client/games`,
+        {
+          headers: { "Cache-Control": "no-store" },
+        }
       );
       setGames(res.data.data);
     };
@@ -32,19 +35,29 @@ const HomePage = () => {
             return (
               <div
                 key={key}
-                className="cursor-pointer relative group overflow-hidden rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
+                className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
               >
+                <div className="relative overflow-hidden rounded-[20px]">
+                  <Image
+                    src={item.thumbnail}
+                    width={200}
+                    height={200}
+                    alt={`IMG-${item.title}`}
+                    loading="lazy"
+                    className="transform group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                  />
+                  <span className="absolute font-nunito bottom-0 left-0 right-0 bg-black bg-opacity-60 backdrop-blur-lg text-center text-white py-1 transform translate-y-full group-hover:translate-y-0 transition-all duration-300 ease-in-out rounded-b-[20px]">
+                    {item.title}
+                  </span>
+                </div>
                 <Image
-                  src={item.thumbnail}
-                  width={200}
-                  height={200}
-                  alt={`IMG-${item.title}`}
+                  src={item.game_type.type_img}
+                  width={35}
+                  height={35}
+                  alt={`type/${key}`}
                   loading="lazy"
-                  className="transform group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                  className="absolute top-[-10px] left-[-10px]"
                 />
-                <span className="absolute font-nunito bottom-0 left-0 right-0 bg-black bg-opacity-60 backdrop-blur-lg text-center text-white py-1 transform translate-y-full group-hover:translate-y-0 transition-all duration-300 ease-in-out rounded-b-[20px]">
-                  {item.title}
-                </span>
               </div>
             );
           })}

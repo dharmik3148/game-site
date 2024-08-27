@@ -3,11 +3,11 @@ module.exports = (seq, DT) => {
     "privacy_policy",
     {
       heading: {
-        type: DT.TEXT,
+        type: DT.STRING,
         allowNull: false,
       },
       content: {
-        type: DT.TEXT,
+        type: DT.TEXT("long"),
         allowNull: false,
       },
     },

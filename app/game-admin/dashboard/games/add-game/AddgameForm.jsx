@@ -89,6 +89,8 @@ const AddgameForm = ({ dropData }) => {
         }
       );
       if (res.data.status !== true) {
+        router.push("/game-admin/dashboard/games");
+        router.refresh();
         setLoader(false);
         return toast.error(res.data.message);
       }

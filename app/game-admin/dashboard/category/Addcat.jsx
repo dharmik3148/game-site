@@ -48,7 +48,12 @@ const Addcat = () => {
     );
 
     if (res.data.status !== true) {
-      return toast.error("adwdw" + res.data.message);
+      setFile(null);
+      setPreview("");
+      setName("");
+
+      setLoading(false);
+      return toast.error(res.data.message);
     }
 
     setFile(null);

@@ -49,6 +49,10 @@ const AddGmType = () => {
     );
 
     if (res.data.status !== true) {
+      setFile(null);
+      setPreview("");
+      setName("");
+
       setLoader(false);
       return toast.error(res.data.message);
     }
