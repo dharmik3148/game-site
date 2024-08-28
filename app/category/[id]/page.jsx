@@ -1,24 +1,38 @@
-"use client";
+import CategoryPage from "@/components/clientComp/CategoryPage";
+import axios from "axios";
 
-import useLoadingStore from "@/store/loadingStore";
-import { useParams } from "next/navigation";
-import { useEffect } from "react";
+const fetchData = async (id) => {
+  const res = await axios.post(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/client/category?id=${id}`,
+    {
+      headers: { "Cache-Control": "no-store" },
+    }
+  );
+  return res.data;
+};
 
-const Category = async () => {
-  const setLoading = useLoadingStore((state) => state.setLoading);
+export async function generateMetadata({ params }) {
+  const data = await fetchData(params.id);
+  const categoryName = data.category?.category_name || "Loading...";
 
-  const params = useParams();
+  return {
+    title: `${categoryName} Games - Category Popygames`,
+    description: "This is category page",
+  };
+}
 
-  useEffect(() => {
-    setLoading(false);
-  }, []);
+const Category = async ({ params }) => {
+  const data = await fetchData(params.id);
 
   return (
-    <main className="py-[60px] font-nunito h-screen overflow-auto px-[13px]">
-      <h1 className="lg:text-[40px] md:text-[40px] sm:text-[30px] text-[30px] font-[800] text-siteDarkBlue drop-shadow text-center my-[20px]">
-        {params.id}
-      </h1>
-    </main>
+    <>
+      <CategoryPage
+        all_category={data.all_category}
+        category_games={data.category_games}
+        categoryName={data.category}
+        more_games={data.more_games}
+      />
+    </>
   );
 };
 

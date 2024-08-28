@@ -6,6 +6,7 @@ import {
   SVGCloseMenu,
   SVGHomeIcon,
   SVGMenuIcon,
+  SVGPopyLogo,
   SVGPrivacyPolicyIcon,
 } from "./AllSvg";
 import axios from "axios";
@@ -41,8 +42,12 @@ const Navbar = () => {
         >
           {isSidebarOpen ? <SVGCloseMenu /> : <SVGMenuIcon />}
         </div>
-        <Link href={"/"} onClick={() => setIsSidebarOpen(false)}>
-          Popy Games
+        <Link
+          href={"/"}
+          onClick={() => setIsSidebarOpen(false)}
+          className="flex items-center gap-[7px]"
+        >
+          <SVGPopyLogo className="flex h-[58px] w-fit" /> Popy Games
         </Link>
       </header>
       {isSidebarOpen && (
@@ -52,7 +57,7 @@ const Navbar = () => {
         />
       )}
       <nav
-        className={`fixed top-[60px] bottom-0 left-0 lg:w-[20%] md:w-[30%] max-sm:w-[100%] overflow-y-auto pb-[10px] custom-scrollbar bg-siteDarkBlue bg-opacity-90 backdrop-blur text-white transform ${
+        className={`fixed top-[60px] bottom-[0px] left-0 lg:w-[20%] md:w-[30%] max-sm:w-[100%] overflow-y-auto pb-[10px] custom-scrollbar bg-siteDarkBlue bg-opacity-90 backdrop-blur text-white transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out z-50`}
       >
@@ -96,7 +101,7 @@ const Navbar = () => {
           <hr className="border-deviderGray" />
 
           <Link
-            href={"about-us"}
+            href={"/about-us"}
             onClick={() => {
               setIsSidebarOpen(false);
               setLoading(true);
@@ -107,7 +112,7 @@ const Navbar = () => {
             <span className="slideSpan">About Us</span>
           </Link>
           <Link
-            href={"privacy-policy"}
+            href={"/privacy-policy"}
             onClick={() => {
               setIsSidebarOpen(false);
               setLoading(true);
@@ -119,8 +124,8 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <span className="flex items-center justify-center text-siteDarkYellow font-nunito text-[12px] mt-[50px]">
-          &copy; 2024 PopyGames
+        <span className="flex flex-col items-center justify-center text-siteDarkYellow font-nunito text-[12px] mt-[70px]">
+          <SVGPopyLogo className="flex h-[50px] w-fit" /> &copy; 2024 PopyGames
         </span>
       </nav>
     </>

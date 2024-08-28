@@ -57,7 +57,7 @@ export default async function handler(req, res) {
       status: true,
       all_category: shuffledCategories,
       category_games: shuffledCategoryGames,
-      category,
+      category: category || {},
       more_games: shuffledGames,
     });
   } else {

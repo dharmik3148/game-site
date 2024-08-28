@@ -200,3 +200,8 @@ body::before {
 }
 
 /* LOADING STATE STYLE END */
+
+/* Rotate the image by 22.5 degrees on hover */
+.group-hover\:rotate-22 {
+  transform: rotate(22deg);
+}
