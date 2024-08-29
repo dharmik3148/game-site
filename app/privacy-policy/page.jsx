@@ -14,7 +14,7 @@ const PrivacyPolicy = async () => {
   );
 
   return (
-    <section className="py-[60px] font-nunito h-screen overflow-auto px-[12px]">
+    <section className="py-[60px] font-nunito px-[12px]">
       <h1 className="lg:text-[40px] md:text-[40px] sm:text-[30px] text-[30px] font-[800] text-siteDarkBlue drop-shadow text-center my-[20px]">
         Privacy Policy &amp; Terms of Use for popygames.com !
       </h1>

@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const HomePage = () => {
@@ -33,7 +34,8 @@ const HomePage = () => {
         {games &&
           games.map((item, key) => {
             return (
-              <div
+              <Link
+                href={`${process.env.NEXT_PUBLIC_BASE_URL}/game/${item.id}?name=${item.title}`}
                 key={key}
                 className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
               >
@@ -58,7 +60,7 @@ const HomePage = () => {
                   loading="lazy"
                   className="absolute top-[-10px] left-[-10px]"
                 />
-              </div>
+              </Link>
             );
           })}
       </section>

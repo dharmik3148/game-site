@@ -20,6 +20,8 @@ const Navbar = () => {
 
   const setLoading = useLoadingStore((state) => state.setLoading);
 
+  const currentYear = new Date().getFullYear();
+
   useEffect(() => {
     const fetchCategory = async () => {
       const res = await axios.get(
@@ -35,7 +37,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="bg-siteDarkBlue bg-opacity-80 backdrop-blur fixed top-0 left-0 right-0 font-nunito font-[900] text-white h-[60px] flex items-center text-[20px] z-10">
+      <header className="bg-siteDarkBlue bg-opacity-90 backdrop-blur fixed top-0 left-0 right-0 font-nunito font-[900] text-white h-[60px] flex items-center text-[20px] z-10">
         <div
           className="mx-[10px] h-[45px] w-[45px] cursor-pointer hover:bg-siteBlue rounded-full flex items-center justify-center transition duration-300 ease"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -45,9 +47,9 @@ const Navbar = () => {
         <Link
           href={"/"}
           onClick={() => setIsSidebarOpen(false)}
-          className="flex items-center gap-[7px]"
+          className="flex items-center gap-[7px] text-siteDarkYellow"
         >
-          <SVGPopyLogo className="flex h-[58px] w-fit" /> Popy Games
+          <SVGPopyLogo className="flex h-[58px] w-[58px]" /> Popy Games
         </Link>
       </header>
       {isSidebarOpen && (
@@ -125,7 +127,8 @@ const Navbar = () => {
         </div>
 
         <span className="flex flex-col items-center justify-center text-siteDarkYellow font-nunito text-[12px] mt-[70px]">
-          <SVGPopyLogo className="flex h-[50px] w-fit" /> &copy; 2024 PopyGames
+          <SVGPopyLogo className="flex h-[50px] w-fit" /> &copy;
+          {currentYear} PopyGames
         </span>
       </nav>
     </>

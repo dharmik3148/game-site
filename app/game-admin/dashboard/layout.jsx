@@ -11,8 +11,8 @@ export default function DashboardLayout({ children }) {
   const isLoading = useLoadingStore((state) => state.isLoading);
 
   return (
-    <>
-      <div className="relative bg-[#ededed] min-h-screen z-20">
+    <div className="fixed top-0 bottom-0 left-0 right-0 z-20">
+      <div className="relative bg-[#ededed] h-screen">
         <Navbar />
         <SideBar />
 
@@ -39,6 +39,6 @@ export default function DashboardLayout({ children }) {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

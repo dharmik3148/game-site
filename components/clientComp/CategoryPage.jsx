@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { SVGPopyLogo } from "./AllSvg";
 
 const CategoryPage = ({
   all_category,
@@ -17,7 +16,7 @@ const CategoryPage = ({
   const [moreGames, setmoreGames] = useState(more_games);
 
   return (
-    <main className="pt-[60px] font-nunito ">
+    <main className="pt-[60px] font-nunito">
       <div className="lg:text-[40px] md:text-[40px] sm:text-[30px] text-[25px] font-[800] text-siteDarkBlue">
         <section className="flex items-center justify-center gap-[10px] p-[15px]">
           {Object.keys(category).length !== 0 ? (
