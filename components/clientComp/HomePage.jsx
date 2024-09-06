@@ -1,5 +1,6 @@
 "use client";
 
+import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,8 @@ import { useEffect, useState } from "react";
 
 const HomePage = () => {
   const [games, setGames] = useState([]);
+
+  const setLoading = useLoadingStore((state) => state.setLoading);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -35,8 +38,9 @@ const HomePage = () => {
           games.map((item, key) => {
             return (
               <Link
-                href={`${process.env.NEXT_PUBLIC_BASE_URL}/game/${item.id}?name=${item.title}`}
+                href={`/game/${item.id}`}
                 key={key}
+                onClick={() => setLoading(true)}
                 className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
               >
                 <div className="relative overflow-hidden rounded-[20px]">

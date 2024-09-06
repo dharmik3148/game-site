@@ -1,8 +1,10 @@
 "use client";
 
+import useLoadingStore from "@/store/loadingStore";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const CategoryPage = ({
   all_category,
@@ -14,6 +16,22 @@ const CategoryPage = ({
   const [categoryGames, setCategoryGames] = useState(category_games);
   const [category, setcategory] = useState(categoryName);
   const [moreGames, setmoreGames] = useState(more_games);
+
+  const pathname = usePathname();
+
+  const setLoading = useLoadingStore((state) => state.setLoading);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  const handleClick = (href) => {
+    if (pathname !== href) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="pt-[60px] font-nunito">
@@ -49,8 +67,10 @@ const CategoryPage = ({
           {categoryGames.length > 0 ? (
             categoryGames.map((item, key) => {
               return (
-                <div
+                <Link
                   key={key}
+                  href={`/game/${item.id}`}
+                  onClick={() => setLoading(true)}
                   className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
                 >
                   <div className="relative overflow-hidden rounded-[20px]">
@@ -74,7 +94,7 @@ const CategoryPage = ({
                     loading="lazy"
                     className="absolute top-[-10px] left-[-10px] pointer-events-none"
                   />
-                </div>
+                </Link>
               );
             })
           ) : (
@@ -96,11 +116,10 @@ const CategoryPage = ({
             allCategory.map((item, key) => {
               return (
                 <Link
-                  href={`${process.env.NEXT_PUBLIC_BASE_URL}/category/${
-                    item.id
-                  }?name=${item.category_name.toLowerCase()}`}
-                  className="relative bg-smokeWhite overflow-hidden group bg-opacity-75 backdrop-blur flex gap-[15px] items-center hover:drop-shadow-xl p-[10px] cursor-pointer rounded-lg border-[2px] border-siteDarkBlue hover:bg-siteYellow hover:bg-opacity-85 transition-colors duration-300 ease-in-out"
                   key={key}
+                  href={`/category/${item.id}`}
+                  onClick={() => handleClick(`/category/${item.id}`)}
+                  className="relative bg-smokeWhite overflow-hidden group bg-opacity-75 backdrop-blur flex gap-[15px] items-center hover:drop-shadow-xl p-[10px] cursor-pointer rounded-lg border-[2px] border-siteDarkBlue hover:bg-siteYellow hover:bg-opacity-85 transition-colors duration-300 ease-in-out"
                 >
                   <div className="transition-transform duration-300 ease-in-out group-hover:rotate-[-22.5deg]">
                     <Image
@@ -137,8 +156,10 @@ const CategoryPage = ({
           {moreGames.length > 0 ? (
             moreGames.map((item, key) => {
               return (
-                <div
+                <Link
                   key={key}
+                  href={`/game/${item.id}`}
+                  onClick={() => handleClick(`/game/${item.id}`)}
                   className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
                 >
                   <div className="relative overflow-hidden rounded-[20px]">
@@ -162,7 +183,7 @@ const CategoryPage = ({
                     loading="lazy"
                     className="absolute top-[-10px] left-[-10px] pointer-events-none"
                   />
-                </div>
+                </Link>
               );
             })
           ) : (

@@ -4,6 +4,8 @@ import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/clientComp/Navbar";
 import Footer from "@/components/clientComp/Footer";
+import GoToTop from "@/components/clientComp/GoToTop";
+import LoadingPage from "@/components/clientComp/LoadingPage";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -38,7 +40,11 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
 
+        <GoToTop />
+
         <Footer />
+
+        <LoadingPage />
 
         <ToastContainer
           position="bottom-right"

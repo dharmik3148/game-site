@@ -13,6 +13,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import useLoadingStore from "@/store/loadingStore";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,6 +22,8 @@ const Navbar = () => {
   const setLoading = useLoadingStore((state) => state.setLoading);
 
   const currentYear = new Date().getFullYear();
+
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -35,6 +38,15 @@ const Navbar = () => {
     fetchCategory();
   }, []);
 
+  const handleClick = (href) => {
+    if (pathname !== href) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+    setIsSidebarOpen(false);
+  };
+
   return (
     <>
       <header className="bg-siteDarkBlue bg-opacity-90 backdrop-blur fixed top-0 left-0 right-0 font-nunito font-[900] text-white h-[60px] flex items-center text-[20px] z-10">
@@ -46,7 +58,7 @@ const Navbar = () => {
         </div>
         <Link
           href={"/"}
-          onClick={() => setIsSidebarOpen(false)}
+          onClick={() => handleClick("/")}
           className="flex items-center gap-[7px] text-siteDarkYellow"
         >
           <SVGPopyLogo className="flex h-[58px] w-[58px]" /> Popy Games
@@ -66,9 +78,7 @@ const Navbar = () => {
         <div className="p-[10px] mt-[10px] flex flex-col gap-[10px]">
           <Link
             href={"/"}
-            onClick={() => {
-              setIsSidebarOpen(false);
-            }}
+            onClick={() => handleClick("/")}
             className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
           >
             <SVGHomeIcon />
@@ -79,13 +89,8 @@ const Navbar = () => {
             categories.map((item, key) => {
               return (
                 <Link
-                  href={`${process.env.NEXT_PUBLIC_BASE_URL}/category/${
-                    item.id
-                  }?name=${item.category_name.toLowerCase()}`}
-                  onClick={() => {
-                    setIsSidebarOpen(false);
-                    setLoading(true);
-                  }}
+                  href={`/category/${item.id}`}
+                  onClick={() => handleClick(`/category/${item.id}`)}
                   className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
                   key={key}
                 >
@@ -104,10 +109,7 @@ const Navbar = () => {
 
           <Link
             href={"/about-us"}
-            onClick={() => {
-              setIsSidebarOpen(false);
-              setLoading(true);
-            }}
+            onClick={() => handleClick("/about-us")}
             className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
           >
             <SVGAboutUsIcon />
@@ -115,10 +117,7 @@ const Navbar = () => {
           </Link>
           <Link
             href={"/privacy-policy"}
-            onClick={() => {
-              setIsSidebarOpen(false);
-              setLoading(true);
-            }}
+            onClick={() => handleClick("/privacy-policy")}
             className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
           >
             <SVGPrivacyPolicyIcon />

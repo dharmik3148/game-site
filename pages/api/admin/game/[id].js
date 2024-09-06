@@ -56,7 +56,7 @@ export default async function handler(req, res) {
 
     // data.played_count += 1;
 
-    await data.save();
+    // await data.save();
 
     return res.status(200).json({
       status: true,

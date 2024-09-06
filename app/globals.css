@@ -205,3 +205,34 @@ body::before {
 .group-hover\:rotate-22 {
   transform: rotate(22deg);
 }
+
+/* SCROLL TO TOP START*/
+.topBtn {
+  position: fixed;
+  user-select: none;
+  bottom: 20px;
+  right: 20px;
+  height: 45px;
+  width: 45px;
+  /* background: #ffffff8c; */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 100ms ease;
+  z-index: 999;
+}
+
+.topBtn:active {
+  transform: scale(0.9, 0.9);
+}
+
+/* SCROLL TO TOP END */
+
+.play-btn:hover {
+  transform: scale(1.1);
+  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+}

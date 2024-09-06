@@ -43,7 +43,7 @@ export default async function handler(req, res) {
       ],
     });
 
-    const shuffledCategoryGames = shuffle(
+    const shuffledCategory = shuffle(
       category_games.map((game) => game.toJSON())
     );
 
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
     return res.status(200).send({
       status: true,
       all_category: shuffledCategories,
-      category_games: shuffledCategoryGames,
+      category_games: shuffledCategory,
       category: category || {},
       more_games: shuffledGames,
     });

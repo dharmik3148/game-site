@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <footer className="font-nunito text-smokeWhite">
       <SVGFooterBg />
-      <section className="bg-siteDarkBlue p-[10px] flex items-center lg:flex-row md:flex-row sm:flex-row flex-col lg:justify-evenly md:justify-evenly sm:justify-evenly">
+      <section className="bg-siteDarkBlue p-[10px] mt-[-2px] flex items-center lg:flex-row md:flex-row sm:flex-row flex-col lg:justify-evenly md:justify-evenly sm:justify-evenly">
         <div className="flex items-center gap-[10px]">
           <SVGPopyLogo className="h-[60px] w-[60px] lg:h-[100px] lg:w-[100px] md:h-[80px] md:w-[80px] sm:h-[60px] sm:w-[60px] rounded-full" />
           <div className="flex flex-col">

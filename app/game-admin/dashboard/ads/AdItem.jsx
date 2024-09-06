@@ -34,24 +34,29 @@ const AdItem = ({
 
     setLoader(true);
 
-    const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ads`,
-      {
-        headers: {
-          id,
-          "Cache-Control": "no-store",
-        },
+    try {
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ads`,
+        {
+          headers: {
+            id,
+            "Cache-Control": "no-store",
+          },
+        }
+      );
+      if (res.data.status !== true) {
+        setLoader(false);
+        return toast.error(res.data.message);
       }
-    );
-    if (res.data.status !== true) {
-      setLoader(false);
-      return toast.error(res.data.message);
-    }
 
-    toast.success(res.data.message);
-    router.push("/game-admin/dashboard/ads", { scroll: false });
-    router.refresh();
-    setLoader(false);
+      toast.success(res.data.message);
+      router.push("/game-admin/dashboard/ads", { scroll: false });
+      router.refresh();
+      setLoader(false);
+    } catch (error) {
+      toast.error(error.message);
+      setLoader(false);
+    }
   };
 
   return (

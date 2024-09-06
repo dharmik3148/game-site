@@ -13,7 +13,7 @@ export default async function handler(req, res) {
           fs.writeFile(adsTxtPath, defaultAdsTxtContent, "utf8", (writeErr) => {
             if (writeErr) {
               return res
-                .status(500)
+                .status(200)
                 .send({ status: false, message: "Error creating ads.txt" });
             }
             return res.status(200).send({
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
           });
         } else {
           return res
-            .status(500)
+            .status(200)
             .send({ status: false, message: "Error reading ads.txt" });
         }
       } else {

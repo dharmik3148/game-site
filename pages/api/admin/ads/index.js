@@ -2,6 +2,7 @@ const db = require("@/config/dbConfig");
 
 const Ad = db.ad;
 const Game = db.game;
+const PageAds = db.pageads;
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
@@ -32,6 +33,8 @@ export default async function handler(req, res) {
 
     const ad = await Ad.findOne({ where: { id } });
 
+    console.log(ad);
+
     if (!ad) {
       return res.status(200).send({ status: false, message: "Ad not found" });
     }
@@ -44,6 +47,15 @@ export default async function handler(req, res) {
       return res.status(200).send({
         status: false,
         message: "Cannot delete ad, there are games associated with this ad",
+      });
+    }
+
+    const checkPageAds = await PageAds.findOne({ where: { adId: id } });
+
+    if (checkPageAds) {
+      return res.status(200).send({
+        status: false,
+        message: `Cannot delete ad, ad linked to ${checkPageAds.page_type}`,
       });
     }
 

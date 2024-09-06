@@ -1,3 +1,4 @@
+import CloseLoading from "@/components/clientComp/CloseLoading";
 import axios from "axios";
 
 export const metadata = {
@@ -15,6 +16,7 @@ const Page = async () => {
 
   return (
     <section className="py-[60px] font-nunito px-[13px]">
+      <CloseLoading />
       <h1 className="lg:text-[40px] md:text-[40px] sm:text-[30px] text-[30px] font-[800] text-siteDarkBlue drop-shadow text-center my-[20px]">
         Wanna know about popy games ?
       </h1>

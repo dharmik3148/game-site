@@ -104,7 +104,7 @@ export default async function handler(req, res) {
           try {
             await fsPromises.unlink(zipPath);
           } catch (unlinkErr) {
-            return res.status(500).send({
+            return res.status(200).send({
               status: false,
               message: "Failed to delete the zip file",
               details: unlinkErr.message,
@@ -136,7 +136,7 @@ export default async function handler(req, res) {
           data: createdGame,
         });
       } catch (unzipErr) {
-        res.status(500).send({
+        res.status(200).send({
           error: "Failed to unzip the file",
           details: unzipErr.message,
         });
