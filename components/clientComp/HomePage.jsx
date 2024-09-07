@@ -13,6 +13,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchGames = async () => {
+      setLoading(true);
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/client/games`,
         {
@@ -20,16 +21,10 @@ const HomePage = () => {
         }
       );
       setGames(res.data.data);
+      setLoading(false);
     };
     fetchGames();
   }, []);
-
-  // const data = Array.from({ length: 30 }, (_, index) => ({
-  //   id: index + 1,
-  //   title: `Game ${index + 1}`,
-  //   thumbnail:
-  //     "http://localhost:3000/uploads/thumbnails/IMG-f66fea421d947493e9d7067a.png",
-  // }));
 
   return (
     <main className="text-white pt-[60px] flex justify-center h-screen">

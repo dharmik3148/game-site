@@ -8,6 +8,7 @@ import LikeIMG from "@/public/likes.png";
 import { SVGPopyLogo } from "./AllSvg";
 import Link from "next/link";
 import SideGames from "./SideGames";
+import AdComponent from "./AdComponent";
 
 const GamePage = ({ all_category, more_games, game_data }) => {
   const [allCategory, setallCategory] = useState(all_category);
@@ -21,6 +22,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
 
   useEffect(() => {
     setLoading(false);
+    console.clear();
   }, []);
 
   const handleClick = (href) => {
@@ -41,7 +43,6 @@ const GamePage = ({ all_category, more_games, game_data }) => {
               src={gameData.game_path}
               frameBorder="0"
             />
-            {/* <div className="h-full w-full bg-smokeBlack"></div> */}
             {isModalOpen && (
               <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center bg-siteBlue bg-opacity-40 backdrop-blur-lg">
                 <span className="flex items-center gap-[10px] text-smokeWhite">
@@ -94,11 +95,20 @@ const GamePage = ({ all_category, more_games, game_data }) => {
           </div>
 
           <div className="mt-[10px]">
-            <div className="bg-red-300 relative h-[100px] mx-auto">
-              <span className="absolute bottom-[-18px] text-gray-500 left-[0px] text-[11px] font-[600]">
-                ADVERTISEMENT
-              </span>
-            </div>
+            {gameData.ad_status === true ? (
+              <div className="border-[1px] border-transparent relative h-[100px] mx-auto">
+                <AdComponent adData={gameData.ad} />
+                <span className="absolute bottom-[-18px] text-gray-500 left-[0px] text-[11px] font-[600]">
+                  ADVERTISEMENT
+                </span>
+              </div>
+            ) : (
+              <div className="border-[1px] border-deviderGray border-dashed relative h-[100px] mx-auto">
+                <span className="absolute bottom-[-18px] text-gray-500 left-[0px] text-[11px] font-[600]">
+                  ADVERTISEMENT
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="mt-[20px] flex lg:flex md:flex sm:flex max-sm:flex-col gap-[10px]">
@@ -202,16 +212,32 @@ const GamePage = ({ all_category, more_games, game_data }) => {
                   })}
               </section>
             </div>
-            <div className="relative bg-red-300 w-[500px] max-sm:h-[300px] max-sm:w-full">
-              <span className="absolute text-gray-500 top-[-15px] left-[0px] text-[11px] font-[600]">
-                ADVERTISEMENT
-              </span>
-            </div>
+
+            {gameData.ad_status === true ? (
+              <div className="relative border-[1px] border-transparent w-[500px] max-sm:h-[300px] max-sm:w-full">
+                <AdComponent adData={gameData.ad} />
+                <span className="absolute text-gray-500 top-[-15px] left-[0px] text-[11px] font-[600]">
+                  ADVERTISEMENT
+                </span>
+              </div>
+            ) : (
+              <div className="relative border-[1px] border-deviderGray border-dashed w-[500px] max-sm:h-[300px] max-sm:w-full">
+                <span className="absolute text-gray-500 top-[-15px] left-[0px] text-[11px] font-[600]">
+                  ADVERTISEMENT
+                </span>
+              </div>
+            )}
           </div>
         </section>
 
         <section className="w-fit h-fit grid grid-cols-2 lg:grid-cols-2 md:grid-cols-6 sm:grid-cols-5 p-[5px] gap-[10px]">
-          <SideGames adPosition={4} gameLimit={12} games={moreGames} />
+          <SideGames
+            adStatus={gameData.ad_status}
+            adPosition={4}
+            gameLimit={12}
+            games={moreGames}
+            adData={gameData.ad}
+          />
         </section>
       </div>
     </main>

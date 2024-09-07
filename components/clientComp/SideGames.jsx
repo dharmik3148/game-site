@@ -4,8 +4,9 @@ import useLoadingStore from "@/store/loadingStore";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import AdComponent from "./AdComponent";
 
-const SideGames = ({ adPosition, gameLimit, games }) => {
+const SideGames = ({ adStatus, adPosition, gameLimit, games, adData }) => {
   const pathname = usePathname();
   const setLoading = useLoadingStore((state) => state.setLoading);
 
@@ -20,17 +21,28 @@ const SideGames = ({ adPosition, gameLimit, games }) => {
     }
   };
 
-  const AdComponent = () => (
-    <div className="relative bg-red-300 group col-span-2 lg:col-span-2 md:col-span-6 sm:col-span-5 h-[300px] sm:h-[300px] md:h-[350px] lg:h-[600px] w-full flex mx-auto items-center justify-center">
-      <span className="absolute top-[100px] left-[-15px] text-gray-500 text-[11px] font-[600] transform -rotate-90 origin-top-left">
-        ADVERTISEMENT
-      </span>
-    </div>
+  const ShowAd = () => (
+    <>
+      {adStatus === true ? (
+        <div className="relative border-[1px] border-transparent group col-span-2 lg:col-span-2 md:col-span-6 sm:col-span-5 h-[300px] sm:h-[300px] md:h-[350px] lg:h-[600px] w-full flex mx-auto items-center justify-center">
+          <AdComponent adData={adData} />
+          <span className="absolute top-[100px] left-[-15px] text-gray-500 text-[11px] font-[600] transform -rotate-90 origin-top-left">
+            ADVERTISEMENT
+          </span>
+        </div>
+      ) : (
+        <div className="relative border-[1px] border-deviderGray border-dashed group col-span-2 lg:col-span-2 md:col-span-6 sm:col-span-5 h-[300px] sm:h-[300px] md:h-[350px] lg:h-[600px] w-full flex mx-auto items-center justify-center">
+          <span className="absolute top-[100px] left-[-15px] text-gray-500 text-[11px] font-[600] transform -rotate-90 origin-top-left">
+            ADVERTISEMENT
+          </span>
+        </div>
+      )}
+    </>
   );
 
   for (let i = 0; i < gamesToSHow.length; i++) {
     if (i === adPosition) {
-      renderedItems.push(<AdComponent key="ad" />);
+      renderedItems.push(<ShowAd key="ad" />);
     }
 
     const item = gamesToSHow[i];
@@ -68,7 +80,7 @@ const SideGames = ({ adPosition, gameLimit, games }) => {
   }
 
   if (gamesToSHow.length <= adPosition) {
-    renderedItems.push(<AdComponent key="ad-end" />);
+    renderedItems.push(<ShowAd key="ad-end" />);
   }
 
   return <>{renderedItems}</>;
