@@ -18,26 +18,34 @@ const GmTypeItem = ({ id, image, name }) => {
   }, []);
 
   const handleDelete = async (id) => {
-    setLoader(true);
-    const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/gametype`,
-      {
-        headers: {
-          id,
-          "Cache-Control": "no-store",
-        },
-      }
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this game-type?"
     );
 
-    if (res.data.status !== true) {
-      setLoader(false);
-      return toast.error(res.data.message);
-    }
+    if (confirmDelete) {
+      setLoader(true);
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/gametype`,
+        {
+          headers: {
+            id,
+            "Cache-Control": "no-store",
+          },
+        }
+      );
 
-    toast.success(res.data.message);
-    router.push("/game-admin/dashboard/gametype", { scroll: false });
-    router.refresh();
-    setLoader(false);
+      if (res.data.status !== true) {
+        setLoader(false);
+        return toast.error(res.data.message);
+      }
+
+      toast.success(res.data.message);
+      router.push("/game-admin/dashboard/gametype", { scroll: false });
+      router.refresh();
+      setLoader(false);
+    } else {
+      return console.log("NOT DELETED");
+    }
   };
 
   return (

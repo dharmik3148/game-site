@@ -120,25 +120,27 @@ const SideBar = () => {
           Admin
         </Link>
 
-        {navLinks?.map((item, key) => {
-          return (
-            <div key={key} className="flex flex-col gap-2">
-              <span className="bg-yellow-300 w-fit px-[10px] rounded-2xl text-[#2a2a2a] text-[13px]">
-                {item.sectionName}
-              </span>
-              {item?.links.map((lnk, key) => {
-                return (
-                  <SideLink
-                    key={key}
-                    name={lnk.name}
-                    path={lnk.path}
-                    icon={lnk.icon}
-                  />
-                );
-              })}
-            </div>
-          );
-        })}
+        <div className="overflow-y-auto pb-[100px]">
+          {navLinks?.map((item, key) => {
+            return (
+              <div key={key} className="flex flex-col gap-2">
+                <span className="bg-yellow-300 w-fit px-[10px] rounded-2xl text-[#2a2a2a] text-[13px]">
+                  {item.sectionName}
+                </span>
+                {item?.links.map((lnk, key) => {
+                  return (
+                    <SideLink
+                      key={key}
+                      name={lnk.name}
+                      path={lnk.path}
+                      icon={lnk.icon}
+                    />
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       <Link

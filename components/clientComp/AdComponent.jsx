@@ -14,7 +14,7 @@ const AdComponent = ({ adData }) => {
   }, []);
 
   return (
-    <div style={{ textAlign: "center", margin: "20px 0" }}>
+    <div style={{ textAlign: "center" }}>
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}

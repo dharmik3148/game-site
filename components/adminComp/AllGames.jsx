@@ -71,27 +71,35 @@ const AllGames = () => {
   const handleDeleteGame = async (e, id) => {
     e.preventDefault();
 
-    setLoading(true);
-
-    const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/game/${id}`,
-      {
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this game?"
     );
 
-    if (res.data.status !== true) {
-      setLoading(false);
-      return toast.error(res.data.message);
-    }
+    if (confirmDelete) {
+      setLoading(true);
 
-    fetchGames(searchTerm);
-    router.push("/game-admin/dashboard/games");
-    router.refresh();
-    toast.success(res.data.message);
-    setLoading(false);
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/game/${id}`,
+        {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        }
+      );
+
+      if (res.data.status !== true) {
+        setLoading(false);
+        return toast.error(res.data.message);
+      }
+
+      fetchGames(searchTerm);
+      router.push("/game-admin/dashboard/games");
+      router.refresh();
+      toast.success(res.data.message);
+      setLoading(false);
+    } else {
+      return console.log("NOT DELETED");
+    }
   };
 
   useEffect(() => {
@@ -149,7 +157,7 @@ const AllGames = () => {
                   </td>
                   <td className="py-1 text-center">
                     <Link
-                      href={item.game_path}
+                      href={`/game/${item.id}`}
                       target="_blank"
                       className="text-blue-700 underline"
                     >

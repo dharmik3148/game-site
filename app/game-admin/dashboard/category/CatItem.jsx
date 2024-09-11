@@ -18,27 +18,35 @@ const CatItem = ({ id, image, name }) => {
   }, []);
 
   const handleCatDelete = async (id) => {
-    setLoader(true);
-    const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/category`,
-      {
-        headers: {
-          id,
-          "Cache-Control": "no-store",
-        },
-      }
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this category?"
     );
 
-    if (res.data.status !== true) {
+    if (confirmDelete) {
+      setLoader(true);
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/category`,
+        {
+          headers: {
+            id,
+            "Cache-Control": "no-store",
+          },
+        }
+      );
+
+      if (res.data.status !== true) {
+        setLoader(false);
+        return toast.error(res.data.message);
+      }
+
+      toast.success(res.data.message);
+      router.push("/game-admin/dashboard/category", { scroll: false });
+      router.refresh();
+
       setLoader(false);
-      return toast.error(res.data.message);
+    } else {
+      return console.log("NOT DELETED");
     }
-
-    toast.success(res.data.message);
-    router.push("/game-admin/dashboard/category", { scroll: false });
-    router.refresh();
-
-    setLoader(false);
   };
 
   return (

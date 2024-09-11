@@ -5,6 +5,13 @@ const { NextResponse } = require("next/server");
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
 
+  const allowedOrigin = ["https://popygames.com"];
+  const origin = request.headers.get("origin");
+
+  if (origin && origin !== allowedOrigin.includes(origin)) {
+    return new NextResponse("Forbidden", { status: 403 });
+  }
+
   if (pathname === "/game-admin") {
     return goto("/game-admin/login", request);
   }

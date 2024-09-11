@@ -141,7 +141,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
 
               <hr className="border-1 border-deviderGray my-[10px]" />
 
-              <p>{gameData.description}</p>
+              <p className="whitespace-pre-line">{gameData.description}</p>
 
               <hr className="border-1 border-deviderGray my-[10px]" />
 

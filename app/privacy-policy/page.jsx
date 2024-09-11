@@ -1,3 +1,4 @@
+import AdComponent from "@/components/clientComp/AdComponent";
 import CloseLoading from "@/components/clientComp/CloseLoading";
 import axios from "axios";
 
@@ -17,6 +18,24 @@ const PrivacyPolicy = async () => {
   return (
     <section className="py-[60px] font-nunito px-[12px]">
       <CloseLoading />
+
+      <div className="mt-[10px] mb-[15px] lg:mx-[125px] md:mx-[75px] sm:mx-[20px]">
+        {res.data?.ad_data?.ad_status === true ? (
+          <div className="relative h-[100px] mx-auto">
+            <AdComponent adData={res.data?.ad_data?.ad} />
+            <span className="absolute bottom-[-18px] text-smokeBlack left-[0px] text-[11px] font-[600]">
+              ADVERTISEMENT
+            </span>
+          </div>
+        ) : (
+          <div className="border-[1px] border-deviderGray border-dashed relative h-[100px] mx-auto">
+            <span className="absolute bottom-[-18px] text-smokeBlack left-[0px] text-[11px] font-[600]">
+              ADVERTISEMENT
+            </span>
+          </div>
+        )}
+      </div>
+
       <h1 className="lg:text-[40px] md:text-[40px] sm:text-[30px] text-[30px] font-[800] text-siteDarkBlue drop-shadow text-center my-[20px]">
         Privacy Policy &amp; Terms of Use for popygames.com !
       </h1>
@@ -41,6 +60,23 @@ const PrivacyPolicy = async () => {
           !! No Content !!
         </span>
       )}
+
+      <div className="mt-[10px] mb-[15px] lg:mx-[125px] md:mx-[75px] sm:mx-[20px]">
+        {res.data?.ad_data?.ad_status === true ? (
+          <div className="relative h-[100px] mx-auto">
+            <AdComponent adData={res.data?.ad_data?.ad} />
+            <span className="absolute bottom-[-18px] text-smokeBlack left-[0px] text-[11px] font-[600]">
+              ADVERTISEMENT
+            </span>
+          </div>
+        ) : (
+          <div className="border-[1px] border-deviderGray border-dashed relative h-[100px] mx-auto">
+            <span className="absolute bottom-[-18px] text-smokeBlack left-[0px] text-[11px] font-[600]">
+              ADVERTISEMENT
+            </span>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

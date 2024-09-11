@@ -16,10 +16,13 @@ export default async function handler(req, res) {
           [Op.or]: [
             { title: { [Op.like]: `%${searchTerm}%` } },
             { description: { [Op.like]: `%${searchTerm}%` } },
-            { played_count: { [Op.like]: `%${searchTerm}%` } },
             { page_title: { [Op.like]: `%${searchTerm}%` } },
             { meta_description: { [Op.like]: `%${searchTerm}%` } },
-            { "$Category.category_name$": { [Op.like]: `%${searchTerm}%` } },
+            { "$category.category_name$": { [Op.like]: `%${searchTerm}%` } },
+            { "$game_type.name$": { [Op.like]: `%${searchTerm}%` } },
+            { "$ad.ad_name$": { [Op.like]: `%${searchTerm}%` } },
+            { "$ad.ad_client$": { [Op.like]: `%${searchTerm}%` } },
+            { "$ad.ad_slot$": { [Op.like]: `%${searchTerm}%` } },
           ],
         },
         include: [
