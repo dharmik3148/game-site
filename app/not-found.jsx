@@ -12,11 +12,20 @@ const NotFound = () => {
   }, []);
 
   return (
-    <div className="pt-[60px] h-screen">
-      <h1>Not found – 404!</h1>
-      <div>
-        <Link href="/">Go back to Home</Link>
-      </div>
+    <div className="pt-[60px] font-nunito h-screen flex items-center text-center justify-center flex-col">
+      <h1 className="text-smokeBlack text-[150px] max-sm:text-[100px] font-[800]">
+        404
+      </h1>
+      <h2 className="text-smokeBlack text-[50px] max-sm:text-[30px] mb-[10px] font-[800]">
+        Oops, are you lost !?
+      </h2>
+
+      <Link
+        href="/"
+        className="border-[3px] border-siteDarkBlue rounded-full bg-siteDarkYellow p-[10px] font-[800] text-[20px]"
+      >
+        Go To Home
+      </Link>
     </div>
   );
 };
