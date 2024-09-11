@@ -1,22 +1,32 @@
 import axios from "axios";
-import AddgameForm from "./AddgameForm";
+import dynamic from "next/dynamic";
+
+const AddgameForm = dynamic(() => import("./AddgameForm"), { ssr: false });
 
 export const metadata = {
   title: "Admin - Add game",
   description: "Manage Add Game",
 };
 
-const AddGame = async () => {
-  const res = await axios.get(
-    `${process.env.NEXT_APP_BASE_URL}/api/admin/game/add-page-data`,
-    { headers: { "Cache-Control": "no-store" } }
-  );
+const Page = async () => {
+  let dropData = {};
+
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_APP_BASE_URL}/api/admin/game/add-page-data`,
+      { headers: { "Cache-Control": "no-store" } }
+    );
+    dropData = res.data;
+  } catch (error) {
+    console.error("Error fetching add game page data:", error);
+    // Optionally, you can set dropData to a fallback value or display an error message
+  }
 
   return (
     <>
-      <AddgameForm dropData={res.data} />
+      <AddgameForm dropData={dropData} />
     </>
   );
 };
 
-export default AddGame;
+export default Page;

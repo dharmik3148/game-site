@@ -7,33 +7,39 @@ export const metadata = {
   description: "Manage GameTypes",
 };
 
-const GameType = async () => {
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/gametype`,
-    { headers: { "Cache-Control": "no-store" } }
-  );
+const Page = async () => {
+  let gameTypes = [];
+
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/gametype`,
+      { headers: { "Cache-Control": "no-store" } }
+    );
+    gameTypes = res.data;
+  } catch (error) {
+    console.error("Error fetching game types:", error);
+    // Optionally, you can set gameTypes to a fallback value or display an error message
+  }
 
   return (
     <div className="grid grid-cols-2 gap-[10px]">
       <div className="col-span-1 border-2 border-dashed flex flex-col border-[#a5a5a5] p-[10px] gap-[10px]">
         <span className="bg-[#2a2a2a] flex p-[10px] text-[#ededed] items-center justify-center font-bold">
-          All GameType
+          All GameTypes
         </span>
 
-        {res.data.length > 0 ? (
-          res?.data.map((item, key) => {
-            return (
-              <GmTypeItem
-                key={key}
-                id={item.id}
-                image={item.type_img}
-                name={item.name}
-              />
-            );
-          })
+        {gameTypes.length > 0 ? (
+          gameTypes.map((item, key) => (
+            <GmTypeItem
+              key={key}
+              id={item.id}
+              image={item.type_img}
+              name={item.name}
+            />
+          ))
         ) : (
           <span className="flex justify-center text-red-500 font-bold">
-            No Gametype found
+            No GameTypes found
           </span>
         )}
       </div>
@@ -48,4 +54,4 @@ const GameType = async () => {
   );
 };
 
-export default GameType;
+export default Page;

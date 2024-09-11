@@ -6,7 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const SingleAd = () => {
+const Page = () => {
   const [ad_name, setAd_name] = useState("");
   const [ad_client, setAd_client] = useState("");
   const [ad_slot, setAd_slot] = useState("");
@@ -205,4 +205,4 @@ const SingleAd = () => {
   );
 };
 
-export default SingleAd;
+export default Page;

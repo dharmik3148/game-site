@@ -6,7 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const SingleABoutUs = () => {
+const Page = () => {
   const [heading, setHeading] = useState("");
   const [content, setContent] = useState("");
 
@@ -98,4 +98,4 @@ const SingleABoutUs = () => {
   );
 };
 
-export default SingleABoutUs;
+export default Page;

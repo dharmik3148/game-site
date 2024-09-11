@@ -8,7 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const GameTypeId = () => {
+const Page = () => {
   const [name, setName] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState("");
@@ -141,4 +141,4 @@ const GameTypeId = () => {
   );
 };
 
-export default GameTypeId;
+export default Page;

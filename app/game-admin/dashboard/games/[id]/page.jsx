@@ -9,7 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
 
   const params = useParams();
@@ -345,7 +345,7 @@ const page = () => {
                     <ImageUpload />
                   </div>
                   <span className="text-[10px] flex text-center">
-                    upload image "png-jpg-jpeg"
+                    upload image &ldquo;png-jpg-jpeg&ldquo;
                   </span>
                 </label>
 
@@ -420,4 +420,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

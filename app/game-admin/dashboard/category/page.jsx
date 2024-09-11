@@ -7,11 +7,18 @@ export const metadata = {
   description: "Manage categories",
 };
 
-const Category = async () => {
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/category`,
-    { headers: { "Cache-Control": "no-store" } }
-  );
+const Page = async () => {
+  let data = [];
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/category`,
+      { headers: { "Cache-Control": "no-store" } }
+    );
+    data = res.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    // You can handle error scenarios or provide fallback data here
+  }
 
   return (
     <div className="grid grid-cols-2 gap-[10px]">
@@ -19,17 +26,15 @@ const Category = async () => {
         <span className="bg-[#2a2a2a] flex p-[10px] text-[#ededed] items-center justify-center font-bold">
           All Categories
         </span>
-        {res.data.length > 0 ? (
-          res?.data.map((item, key) => {
-            return (
-              <CatItem
-                key={key}
-                id={item.id}
-                image={item.category_img}
-                name={item.category_name}
-              />
-            );
-          })
+        {data.length > 0 ? (
+          data.map((item, key) => (
+            <CatItem
+              key={key}
+              id={item.id}
+              image={item.category_img}
+              name={item.category_name}
+            />
+          ))
         ) : (
           <span className="flex justify-center text-red-500 font-bold">
             No category found
@@ -46,4 +51,4 @@ const Category = async () => {
   );
 };
 
-export default Category;
+export default Page;

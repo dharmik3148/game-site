@@ -1,19 +1,24 @@
 const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize("game-site", "root", "", {
-  host: "localhost",
-  dialect: "mysql",
-  logging: false,
-  define: {
-    freezeTableName: true,
-  },
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-});
+const sequelize = new Sequelize(
+  process.env.NEXT_APP_DBNAME,
+  process.env.NEXT_APP_USERNAME,
+  process.env.NEXT_APP_PASSWORD,
+  {
+    host: process.env.NEXT_APP_HOST,
+    dialect: "mysql",
+    logging: false,
+    define: {
+      freezeTableName: true,
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+  }
+);
 
 sequelize
   .authenticate()

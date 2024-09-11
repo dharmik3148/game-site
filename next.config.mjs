@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: "export",
   reactStrictMode: false,
 
   images: {
@@ -8,6 +7,10 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
+      },
+      {
+        protocol: "https",
+        hostname: "popygames.com",
       },
     ],
   },

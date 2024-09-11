@@ -109,20 +109,24 @@ const AdItem = ({
       >
         <div className="p-3 border-b-2 border-l-2 border-r-2 border-[#2a2a2a]">
           <code className="text-[15px] text-red-500">
-            data-ad-client="<span className="text-green-600">{ad_client}</span>"
+            data-ad-client=&ldquo;
+            <span className="text-green-600">{ad_client}</span>&ldquo;
           </code>
           <br />
           <code className="text-[15px] text-red-500">
-            data-ad-slot="<span className="text-green-600">{ad_slot}</span>"
+            data-ad-slot=&ldquo;
+            <span className="text-green-600">{ad_slot}</span>&ldquo;
           </code>
           <br />
           <code className="text-[15px] text-red-500">
-            data-ad-format="<span className="text-green-600">{ad_format}</span>"
+            data-ad-format=&ldquo;
+            <span className="text-green-600">{ad_format}</span>&ldquo;
           </code>
           <br />
           <code className="text-[15px] text-red-500">
-            data-full-width-responsive="
-            <span className="text-green-600">{ad_fullWidthResponsive}</span>"
+            data-full-width-responsive=&ldquo;
+            <span className="text-green-600">{ad_fullWidthResponsive}</span>
+            &ldquo;
           </code>
         </div>
       </div>

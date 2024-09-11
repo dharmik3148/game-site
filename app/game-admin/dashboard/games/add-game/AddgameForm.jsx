@@ -297,7 +297,7 @@ const AddgameForm = ({ dropData }) => {
                     <ImageUpload />
                   </div>
                   <span className="text-[10px] flex text-center">
-                    upload image "png-jpg-jpeg"
+                    upload image &ldquo;png-jpg-jpeg&ldquo;
                   </span>
                 </label>
 
@@ -351,8 +351,6 @@ const AddgameForm = ({ dropData }) => {
               />
             </div>
           </div>
-
-          {/*  */}
         </div>
       </div>
       <button
