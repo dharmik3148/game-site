@@ -19,28 +19,36 @@ const PolicyItem = ({ id, heading, content }) => {
   };
 
   const handleDelete = async (e, id) => {
-    e.stopPropagation();
-
-    setLoader(true);
-
-    const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/privacypolicy`,
-
-      {
-        headers: { id: id, "Cache-Control": "no-store" },
-      }
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this policy topic?"
     );
 
-    if (res.data.status !== true) {
+    if (confirmDelete) {
+      e.stopPropagation();
+
+      setLoader(true);
+
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/privacypolicy`,
+
+        {
+          headers: { id: id, "Cache-Control": "no-store" },
+        }
+      );
+
+      if (res.data.status !== true) {
+        setLoader(false);
+        return toast.error(res.data.message);
+      }
+
+      toast.success(res.data.message);
+
+      router.push("/game-admin/dashboard/privacy-policy", { scroll: false });
+      router.refresh();
       setLoader(false);
-      return toast.error(res.data.message);
+    } else {
+      return toast.info("Item not deleted");
     }
-
-    toast.success(res.data.message);
-
-    router.push("/game-admin/dashboard/privacy-policy", { scroll: false });
-    router.refresh();
-    setLoader(false);
   };
 
   return (

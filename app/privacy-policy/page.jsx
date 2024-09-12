@@ -56,7 +56,7 @@ const Page = async () => {
       <h1 className="lg:text-[40px] md:text-[40px] sm:text-[30px] text-[30px] font-[800] text-siteDarkBlue drop-shadow text-center my-[20px]">
         Privacy Policy &amp; Terms of Use for popygames.com !
       </h1>
-      {data?.data?.length > 0 &&
+      {data?.data &&
         data?.data?.map((item, key) => {
           return (
             <article
@@ -72,7 +72,7 @@ const Page = async () => {
             </article>
           );
         })}
-      {data?.data?.length === 0 && (
+      {data?.data && (
         <span className="lg:text-[40px] md:text-[40px] sm:text-[30px] text-[30px] font-[800] text-red-500 drop-shadow flex justify-center my-[20px]">
           !! No Content !!
         </span>
