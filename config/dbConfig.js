@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
     dialectOptions: {
       ssl: {
         ca: fs.readFileSync("./ca-certificate.crt"),
-      },
+      }, 
     },
     pool: {
       max: 5,
