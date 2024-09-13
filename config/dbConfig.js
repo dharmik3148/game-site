@@ -11,7 +11,11 @@ const sequelize = new Sequelize(
     define: {
       freezeTableName: true,
     },
-
+    dialectOptions: {
+      ssl: {
+        ca: fs.readFileSync("./ca-certificate.crt"),
+      },
+    },
     pool: {
       max: 5,
       min: 0,
