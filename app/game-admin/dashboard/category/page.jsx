@@ -36,9 +36,12 @@ const Page = async () => {
             />
           ))
         ) : (
-          <span className="flex justify-center text-red-500 font-bold">
-            No category found
-          </span>
+          <>
+            <CloseLoading />
+            <span className="flex justify-center text-red-500 font-bold">
+              No category found
+            </span>
+          </>
         )}
       </div>
       <div className="col-span-1 border-2 border-dashed border-[#a5a5a5] p-[10px] h-fit flex flex-col gap-[10px]">

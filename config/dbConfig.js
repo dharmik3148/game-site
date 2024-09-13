@@ -1,4 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
+const fs = require("fs");
 
 const sequelize = new Sequelize(
   process.env.NEXT_APP_DBNAME,
@@ -10,6 +11,11 @@ const sequelize = new Sequelize(
     logging: false,
     define: {
       freezeTableName: true,
+    },
+    dialectOptions: {
+      ssl: {
+        ca: fs.readFileSync("./ca-certificate.crt"),
+      },
     },
     pool: {
       max: 5,
@@ -67,7 +73,7 @@ db.pageads.belongsTo(db.ad, { foreignKey: "adId" });
 
 // ASSOCIATIONS END
 
-db.sequelize.sync({ alter: false }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   console.log("### RESYNCED ###");
 });
 

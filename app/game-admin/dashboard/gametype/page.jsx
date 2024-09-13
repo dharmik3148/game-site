@@ -1,6 +1,7 @@
 import axios from "axios";
 import GmTypeItem from "./GmTypeItem";
 import AddGmType from "./AddGmType";
+import CloseLoading from "@/components/clientComp/CloseLoading";
 
 export const metadata = {
   title: "Admin - GameType",
@@ -38,9 +39,12 @@ const Page = async () => {
             />
           ))
         ) : (
-          <span className="flex justify-center text-red-500 font-bold">
-            No GameTypes found
-          </span>
+          <>
+            <CloseLoading />
+            <span className="flex justify-center text-red-500 font-bold">
+              No GameTypes found
+            </span>
+          </>
         )}
       </div>
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import AdItem from "./AdItem";
 import AddAd from "./AddAd";
+import CloseLoading from "@/components/clientComp/CloseLoading";
 
 export const metadata = {
   title: "Admin - Ads",
@@ -45,9 +46,12 @@ const Page = async () => {
               />
             ))
           ) : (
-            <span className="flex justify-center text-red-500 font-bold">
-              No Ads found
-            </span>
+            <>
+              <CloseLoading />
+              <span className="flex justify-center text-red-500 font-bold">
+                No Ads found
+              </span>
+            </>
           )}
         </div>
       </div>
