@@ -22,22 +22,26 @@ export default async function sitemap() {
     },
   ];
 
-  const response = await fetch(`${baseUrl}/api/client/sitemap`);
-  const { category_pages, game_pages } = await response.json();
+  try {
+    const response = await fetch(`${baseUrl}/api/client/sitemap`);
+    const { category_pages, game_pages } = await response.json();
 
-  const categoryPages = category_pages.map((category) => ({
-    url: `${baseUrl}/category/${category.id}`,
-    lastModified: new Date().toISOString(),
-    changefreq: "weekly",
-    priority: 0.6,
-  }));
+    const categoryPages = category_pages.map((category) => ({
+      url: `${baseUrl}/category/${category.id}`,
+      lastModified: new Date().toISOString(),
+      changefreq: "weekly",
+      priority: 0.6,
+    }));
 
-  const gamePages = game_pages.map((game) => ({
-    url: `${baseUrl}/game/${game.id}`,
-    lastModified: new Date(game.updatedAt).toISOString(),
-    changefreq: "daily",
-    priority: 0.7,
-  }));
+    const gamePages = game_pages.map((game) => ({
+      url: `${baseUrl}/game/${game.id}`,
+      lastModified: new Date(game.updatedAt).toISOString(),
+      changefreq: "daily",
+      priority: 0.7,
+    }));
 
-  return [...staticPage, ...categoryPages, ...gamePages];
+    return [...staticPage, ...categoryPages, ...gamePages];
+  } catch (error) {
+    return [...staticPage];
+  }
 }

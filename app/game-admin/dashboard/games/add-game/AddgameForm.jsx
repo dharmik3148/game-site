@@ -119,7 +119,7 @@ const AddgameForm = ({ dropData }) => {
                 add advertisement!
               </Link>
             </label>
-            {dropData.ads.length > 0 ? (
+            {dropData.ads ? (
               <select
                 className="bg-gray-200 outline-none px-[10px] border-2 border-gray-500 h-[40px]"
                 onChange={(e) => setadId(e.target.value)}
@@ -148,7 +148,7 @@ const AddgameForm = ({ dropData }) => {
                 add category!
               </Link>
             </label>
-            {dropData.category.length > 0 ? (
+            {dropData.category ? (
               <select
                 className="bg-gray-200 outline-none px-[10px] border-2 border-gray-500 h-[40px]"
                 onChange={(e) => setcategoryId(e.target.value)}
@@ -177,7 +177,7 @@ const AddgameForm = ({ dropData }) => {
                 add game-type!
               </Link>
             </label>
-            {dropData.gametype.length > 0 ? (
+            {dropData.gametype ? (
               <select
                 className="bg-gray-200 outline-none px-[10px] border-2 border-gray-500 h-[40px]"
                 onChange={(e) => setgametypeid(e.target.value)}

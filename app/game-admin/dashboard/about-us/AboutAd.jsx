@@ -69,7 +69,7 @@ const AboutAd = ({ ads, allAds }) => {
       <div className="border-2 border-[#2a2a2a] p-[10px] rounded-full">
         <span className="text-[#979c97]">Linked Ad : </span>
         {ads.ad !== null ? (
-          <span className="text-blue-500">{ads.ad.ad_name}</span>
+          <span className="text-blue-500">{ads?.ad?.ad_name}</span>
         ) : (
           <span className="text-red-500">No Ad</span>
         )}
@@ -86,7 +86,7 @@ const AboutAd = ({ ads, allAds }) => {
             {allAds.map((item, key) => {
               return (
                 <option key={key} value={item.id}>
-                  {item.ad_name}
+                  {item?.ad_name}
                 </option>
               );
             })}

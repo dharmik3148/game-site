@@ -42,6 +42,8 @@ const GamePage = ({ all_category, more_games, game_data }) => {
               className="border-none h-full w-full"
               src={gameData.game_path}
               frameBorder="0"
+              allow="autoplay"
+              allowFullScreen
             />
             {isModalOpen && (
               <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center bg-siteBlue bg-opacity-40 backdrop-blur-lg">
