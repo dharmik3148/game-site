@@ -1,5 +1,4 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const fs = require("fs");
 
 const sequelize = new Sequelize(
   process.env.NEXT_APP_DBNAME,
@@ -12,11 +11,7 @@ const sequelize = new Sequelize(
     define: {
       freezeTableName: true,
     },
-    dialectOptions: {
-      ssl: {
-        ca: fs.readFileSync("./ca-certificate.crt"),
-      },
-    },
+
     pool: {
       max: 5,
       min: 0,
