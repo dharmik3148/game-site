@@ -26,7 +26,7 @@ const Page = async () => {
         <span className="bg-[#2a2a2a] flex p-[10px] text-[#ededed] items-center justify-center font-bold">
           All Categories
         </span>
-        {data ? (
+        {data.length > 0 ? (
           data.map((item, key) => (
             <CatItem
               key={key}
