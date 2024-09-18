@@ -25,7 +25,6 @@ const Page = async () => {
     data = res.data;
   } catch (error) {
     console.error("Error fetching privacy policy data:", error);
-    // Optionally set data to a fallback value or display an error message
   }
 
   return (

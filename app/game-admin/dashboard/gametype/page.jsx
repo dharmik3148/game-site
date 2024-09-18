@@ -19,7 +19,6 @@ const Page = async () => {
     gameTypes = res.data;
   } catch (error) {
     console.error("Error fetching game types:", error);
-    // Optionally, you can set gameTypes to a fallback value or display an error message
   }
 
   return (

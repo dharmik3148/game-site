@@ -1,6 +1,7 @@
 import axios from "axios";
 import CatItem from "./CatItem";
 import Addcat from "./Addcat";
+import CloseLoading from "@/components/clientComp/CloseLoading";
 
 export const metadata = {
   title: "Admin - Category",
@@ -17,7 +18,6 @@ const Page = async () => {
     data = res.data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    // You can handle error scenarios or provide fallback data here
   }
 
   return (
@@ -26,7 +26,7 @@ const Page = async () => {
         <span className="bg-[#2a2a2a] flex p-[10px] text-[#ededed] items-center justify-center font-bold">
           All Categories
         </span>
-        {data.length > 0 ? (
+        {data ? (
           data.map((item, key) => (
             <CatItem
               key={key}
@@ -36,12 +36,12 @@ const Page = async () => {
             />
           ))
         ) : (
-          <>
+          <div>
             <CloseLoading />
             <span className="flex justify-center text-red-500 font-bold">
               No category found
             </span>
-          </>
+          </div>
         )}
       </div>
       <div className="col-span-1 border-2 border-dashed border-[#a5a5a5] p-[10px] h-fit flex flex-col gap-[10px]">

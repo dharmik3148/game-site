@@ -45,7 +45,7 @@ const CatItem = ({ id, image, name }) => {
 
       setLoader(false);
     } else {
-      return console.log("NOT DELETED");
+      return toast.info("Not Deleted");
     }
   };
 

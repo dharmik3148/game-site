@@ -29,7 +29,6 @@ const Page = async () => {
     aboutUsData = aboutUsResponse.data;
   } catch (error) {
     console.error("Error fetching data:", error);
-    // You can handle error scenarios or provide fallback data here
   }
 
   return (

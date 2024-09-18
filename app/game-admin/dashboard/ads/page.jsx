@@ -19,7 +19,6 @@ const Page = async () => {
     adsData = res.data;
   } catch (error) {
     console.error("Error fetching ads:", error);
-    // Optionally, you can set adsData to a fallback value or display an error message
   }
 
   return (

@@ -44,7 +44,7 @@ const GmTypeItem = ({ id, image, name }) => {
       router.refresh();
       setLoader(false);
     } else {
-      return console.log("NOT DELETED");
+      return toast.info("Not Deleted");
     }
   };
 

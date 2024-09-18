@@ -29,33 +29,39 @@ const AdItem = ({
     setToggle(!toggle);
   };
 
-  const handleDelete = async (e, id) => {
-    e.stopPropagation();
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this Ad?"
+    );
 
-    setLoader(true);
+    if (confirmDelete) {
+      setLoader(true);
 
-    try {
-      const res = await axios.delete(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ads`,
-        {
-          headers: {
-            id,
-            "Cache-Control": "no-store",
-          },
+      try {
+        const res = await axios.delete(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ads`,
+          {
+            headers: {
+              id,
+              "Cache-Control": "no-store",
+            },
+          }
+        );
+        if (res.data.status !== true) {
+          setLoader(false);
+          return toast.error(res.data.message);
         }
-      );
-      if (res.data.status !== true) {
-        setLoader(false);
-        return toast.error(res.data.message);
-      }
 
-      toast.success(res.data.message);
-      router.push("/game-admin/dashboard/ads", { scroll: false });
-      router.refresh();
-      setLoader(false);
-    } catch (error) {
-      toast.error(error.message);
-      setLoader(false);
+        toast.success(res.data.message);
+        router.push("/game-admin/dashboard/ads", { scroll: false });
+        router.refresh();
+        setLoader(false);
+      } catch (error) {
+        toast.error(error.message);
+        setLoader(false);
+      }
+    } else {
+      return toast.info("Not Deleted");
     }
   };
 
@@ -73,7 +79,7 @@ const AdItem = ({
           <div className="flex gap-[25px] items-center">
             <i
               className="bi bi-trash-fill text-red-500 cursor-pointer flex text-[18px]"
-              onClick={(e) => handleDelete(e, id)}
+              onClick={(e) => handleDelete(id)}
             ></i>
 
             <Link
