@@ -1,4 +1,3 @@
-import axios from "axios";
 import GmTypeItem from "./GmTypeItem";
 import AddGmType from "./AddGmType";
 import CloseLoading from "@/components/clientComp/CloseLoading";
@@ -12,13 +11,14 @@ const Page = async () => {
   let gameTypes = [];
 
   try {
-    const res = await axios.get(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/gametype`,
-      { headers: { "Cache-Control": "no-store" } }
+      { cache: "no-store" }
     );
-    gameTypes = res.data;
+
+    gameTypes = await res.json();
   } catch (error) {
-    console.error("Error fetching game types:", error);
+    console.error("Error fetching data:", error);
   }
 
   return (

@@ -1,9 +1,6 @@
-import axios from "axios";
-import dynamic from "next/dynamic";
-
-const AboutAd = dynamic(() => import("./AboutAd"), { ssr: false });
-const AddAbout = dynamic(() => import("./AddAbout"), { ssr: false });
-const AboutItem = dynamic(() => import("./AboutItem"), { ssr: false });
+import AboutAd from "./AboutAd";
+import AboutItem from "./AboutItem";
+import AddAbout from "./AddAbout";
 
 export const metadata = {
   title: "Admin - About Us",
@@ -14,19 +11,24 @@ const Page = async () => {
   let aboutUsData = { data: [], ads: [], allAds: [] };
 
   try {
-    // Fetching ads
-    await axios.get(`${process.env.NEXT_APP_BASE_URL}/api/admin/pageads`, {
-      headers: { pagetype: "about-us", "Cache-Control": "no-store" },
+    await fetch(`${process.env.NEXT_APP_BASE_URL}/api/admin/pageads`, {
+      method: "get",
+      cache: "no-store",
+      headers: { pagetype: "about-us" },
     });
 
-    // Fetching About Us content
-    const aboutUsResponse = await axios.get(
+    const aboutUsRes = await fetch(
       `${process.env.NEXT_APP_BASE_URL}/api/admin/aboutus`,
       {
-        headers: { pagetype: "about-us", "Cache-Control": "no-store" },
+        method: "get",
+        cache: "no-store",
+        headers: {
+          pagetype: "about-us",
+        },
       }
     );
-    aboutUsData = aboutUsResponse.data;
+
+    aboutUsData = await aboutUsRes.json();
   } catch (error) {
     console.error("Error fetching data:", error);
   }

@@ -107,6 +107,16 @@ const SideBar = () => {
         },
       ],
     },
+    {
+      sectionName: "Clean-Up",
+      links: [
+        {
+          name: "Free up storage",
+          path: "/game-admin/dashboard/cleanup",
+          icon: "bi bi-floppy",
+        },
+      ],
+    },
   ];
 
   return (
@@ -120,7 +130,7 @@ const SideBar = () => {
           Admin
         </Link>
 
-        <div className="overflow-y-auto pb-[100px]">
+        <div className="overflow-y-auto pb-[100px] your-scrollbar-class">
           {navLinks?.map((item, key) => {
             return (
               <div key={key} className="flex flex-col gap-2">

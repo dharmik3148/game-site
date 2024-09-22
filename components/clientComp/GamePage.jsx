@@ -3,7 +3,7 @@
 import useLoadingStore from "@/store/loadingStore";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LikeIMG from "@/public/likes.png";
 import { SVGPopyLogo } from "./AllSvg";
 import Link from "next/link";
@@ -15,6 +15,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
   const [moreGames, setmoreGames] = useState(more_games);
   const [gameData, setgameData] = useState(game_data);
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const iframeRef = useRef(null);
 
   const pathname = usePathname();
 
@@ -33,11 +34,31 @@ const GamePage = ({ all_category, more_games, game_data }) => {
     }
   };
 
+  const handleFullscreen = () => {
+    if (iframeRef.current) {
+      if (iframeRef.current.requestFullscreen) {
+        iframeRef.current.requestFullscreen();
+      } else if (iframeRef.current.mozRequestFullScreen) {
+        // Firefox
+        iframeRef.current.mozRequestFullScreen();
+      } else if (iframeRef.current.webkitRequestFullscreen) {
+        // Chrome, Safari and Opera
+        iframeRef.current.webkitRequestFullscreen();
+      } else if (iframeRef.current.msRequestFullscreen) {
+        // IE/Edge
+        iframeRef.current.msRequestFullscreen();
+      }
+    }
+  };
+
   return (
     <main className="pt-[60px] pb-[160px] max-sm:mb-[-25px] lg:mb-[-80px] md:mb-[-60px] sm:mb-[-50px] font-nunito bg-[#0C0D14] backdrop-blur-lg">
       <div className="p-[10px] px-[10px] lg:px-[8%] md:px-[10px] flex max-sm:flex-col lg:flex-row md:flex-col sm:flex-col gap-[10px]">
         <section className="flex flex-col w-fit lg:w-fit md:w-fit max-sm:w-full">
-          <div className="relative h-[564px] w-full md:w-full sm:w-full lg:h-[564px] lg:w-[1000px]">
+          <div
+            ref={iframeRef}
+            className="relative h-[564px] w-full md:w-full sm:w-full lg:h-[564px] lg:w-[1000px]"
+          >
             <iframe
               className="border-none h-full w-full"
               src={gameData.game_path}
@@ -93,6 +114,11 @@ const GamePage = ({ all_category, more_games, game_data }) => {
                 className="h-[40px] w-[40px] pointer-events-none"
               />
               {(gameData.played_count / 1000).toFixed(2) + "k"}
+
+              <i
+                onClick={handleFullscreen}
+                className="bi bi-arrows-fullscreen text-smokeWhite text-[23px] cursor-pointer flex items-center mx-[10px]"
+              ></i>
             </span>
           </div>
 

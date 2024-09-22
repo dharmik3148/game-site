@@ -41,6 +41,7 @@ const AboutAd = ({ ads, allAds }) => {
       toast.error(error.message);
     }
   };
+
   const handleCheckboxChange = (e) => {
     const newStatus = e.target.checked;
     setIsChecked(newStatus);

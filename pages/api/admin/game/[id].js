@@ -54,10 +54,6 @@ export default async function handler(req, res) {
       attributes: ["id", "name"],
     });
 
-    // data.played_count += 1;
-
-    // await data.save();
-
     return res.status(200).json({
       status: true,
       message: "Game entry found",

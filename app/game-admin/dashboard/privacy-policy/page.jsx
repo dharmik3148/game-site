@@ -1,9 +1,6 @@
-import axios from "axios";
-import dynamic from "next/dynamic";
-
-const AddPolicy = dynamic(() => import("./AddPolicy"), { ssr: false });
-const PolicyAd = dynamic(() => import("./PolicyAd"), { ssr: false });
-const PolicyItem = dynamic(() => import("./PolicyItem"), { ssr: false });
+import PolicyAd from "./PolicyAd";
+import PolicyItem from "./PolicyItem";
+import AddPolicy from "./AddPolicy";
 
 export const metadata = {
   title: "Admin - Privacy Policy",
@@ -14,15 +11,22 @@ const Page = async () => {
   let data = { ads: [], allAds: [], data: [] };
 
   try {
-    await axios.get(`${process.env.NEXT_APP_BASE_URL}/api/admin/pageads`, {
-      headers: { pagetype: "privacy-policy", "Cache-Control": "no-store" },
+    await fetch(`${process.env.NEXT_APP_BASE_URL}/api/admin/pageads`, {
+      method: "get",
+      cache: "no-store",
+      headers: {
+        pagetype: "privacy-policy",
+      },
     });
-
-    const res = await axios.get(
+    const res = await fetch(
       `${process.env.NEXT_APP_BASE_URL}/api/admin/privacypolicy`,
-      { headers: { pagetype: "privacy-policy", "Cache-Control": "no-store" } }
+      {
+        method: "get",
+        cache: "no-store",
+        headers: { pagetype: "privacy-policy" },
+      }
     );
-    data = res.data;
+    data = await res.json();
   } catch (error) {
     console.error("Error fetching privacy policy data:", error);
   }

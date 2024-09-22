@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  // distDir: "build",
+
+  async rewrites() {
+    return [
+      {
+        source: "/uploads/:path*",
+        destination: "/uploads/:path*",
+      },
+    ];
+  },
 
   images: {
     remotePatterns: [

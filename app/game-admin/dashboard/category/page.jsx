@@ -1,4 +1,3 @@
-import axios from "axios";
 import CatItem from "./CatItem";
 import Addcat from "./Addcat";
 import CloseLoading from "@/components/clientComp/CloseLoading";
@@ -11,11 +10,12 @@ export const metadata = {
 const Page = async () => {
   let data = [];
   try {
-    const res = await axios.get(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/category`,
-      { headers: { "Cache-Control": "no-store" } }
+      { cache: "no-store" }
     );
-    data = res.data;
+
+    data = await res.json();
   } catch (error) {
     console.error("Error fetching data:", error);
   }

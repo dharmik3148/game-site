@@ -1,4 +1,3 @@
-import axios from "axios";
 import AdItem from "./AdItem";
 import AddAd from "./AddAd";
 import CloseLoading from "@/components/clientComp/CloseLoading";
@@ -12,11 +11,12 @@ const Page = async () => {
   let adsData = [];
 
   try {
-    const res = await axios.get(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ads`,
-      { headers: { "Cache-Control": "no-store" } }
+      { cache: "no-store" }
     );
-    adsData = res.data;
+
+    adsData = await res.json();
   } catch (error) {
     console.error("Error fetching ads:", error);
   }

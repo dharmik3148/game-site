@@ -45,3 +45,18 @@
 /* TOGGLE START */
 
 /* TOGGLE END */
+
+/* Hide scrollbar for WebKit-based browsers (Chrome, Safari, Edge) */
+.your-scrollbar-class::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.your-scrollbar-class {
+  scrollbar-width: none; /* Hide scrollbar */
+}
+
+/* Ensure the element is scrollable */
+.your-scrollbar-class {
+  overflow: auto; /* or overflow: scroll; if you want to force scrollbars */
+}
