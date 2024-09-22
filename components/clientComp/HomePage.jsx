@@ -2,7 +2,6 @@
 
 import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -39,7 +38,7 @@ const HomePage = () => {
                 className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
               >
                 <div className="relative overflow-hidden rounded-[20px]">
-                  <Image
+                  <img
                     src={item.thumbnail}
                     width={200}
                     height={200}
@@ -51,7 +50,7 @@ const HomePage = () => {
                     {item.title}
                   </span>
                 </div>
-                <Image
+                <img
                   src={item.game_type.type_img}
                   width={35}
                   height={35}

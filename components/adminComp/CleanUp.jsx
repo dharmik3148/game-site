@@ -2,7 +2,6 @@
 
 import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -113,7 +112,7 @@ const CleanUp = () => {
                   key={key}
                   className="text-[10px] p-[2px] flex gap-[5px] items-center"
                 >
-                  <Image
+                  <img
                     src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/category/${item}`}
                     width={100}
                     height={100}
@@ -152,7 +151,7 @@ const CleanUp = () => {
                   key={key}
                   className="text-[10px] p-[2px] flex gap-[5px] items-center"
                 >
-                  <Image
+                  <img
                     src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/gametype/${item}`}
                     width={100}
                     height={100}
@@ -191,7 +190,7 @@ const CleanUp = () => {
                   key={key}
                   className="text-[10px] p-[2px] flex gap-[5px] items-center"
                 >
-                  <Image
+                  <img
                     src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/thumbnails/${item}`}
                     width={100}
                     height={100}

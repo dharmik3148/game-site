@@ -1,7 +1,6 @@
 "use client";
 
 import useLoadingStore from "@/store/loadingStore";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AdComponent from "./AdComponent";
@@ -55,7 +54,7 @@ const SideGames = ({ adStatus, adPosition, gameLimit, games, adData }) => {
         className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
       >
         <div className="relative overflow-hidden rounded-[20px]">
-          <Image
+          <img
             src={item.thumbnail}
             width={200}
             height={200}
@@ -67,7 +66,7 @@ const SideGames = ({ adStatus, adPosition, gameLimit, games, adData }) => {
             {item.title}
           </span>
         </div>
-        <Image
+        <img
           src={item.game_type.type_img}
           width={30}
           height={30}

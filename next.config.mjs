@@ -2,14 +2,14 @@
 const nextConfig = {
   reactStrictMode: false,
 
-  async rewrites() {
-    return [
-      {
-        source: "/uploads/:path*",
-        destination: "/uploads/:path*",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/uploads/:path*",
+  //       destination: "/api/",
+  //     },
+  //   ];
+  // },
 
   images: {
     remotePatterns: [

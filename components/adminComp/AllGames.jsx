@@ -1,7 +1,6 @@
 "use client";
 
 import axios from "axios";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import "./adminComp.css";
 import Link from "next/link";
@@ -147,7 +146,7 @@ const AllGames = () => {
                 >
                   <td className="py-1 text-center">{item.id}</td>
                   <td className="py-1">
-                    <Image
+                    <img
                       src={item.thumbnail}
                       height={40}
                       width={40}

@@ -10,7 +10,6 @@ import {
   SVGPrivacyPolicyIcon,
 } from "./AllSvg";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import useLoadingStore from "@/store/loadingStore";
 import { usePathname } from "next/navigation";
@@ -94,7 +93,7 @@ const Navbar = () => {
                   className="flex items-center font-nunito font-[600] gap-[10px] cursor-pointer rounded-md px-[10px] py-[5px] hoverDiv"
                   key={key}
                 >
-                  <Image
+                  <img
                     src={item.category_img}
                     height={33}
                     width={33}

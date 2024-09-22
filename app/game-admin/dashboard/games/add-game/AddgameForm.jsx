@@ -3,8 +3,6 @@
 import { ImageUpload } from "@/components/adminComp/SVG";
 import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
-
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -303,7 +301,7 @@ const AddgameForm = ({ dropData }) => {
 
                 <div className="border-2 border-dashed border-[#979c97]  h-[100px] w-[100px]">
                   {thumbpreview != null ? (
-                    <Image
+                    <img
                       src={thumbpreview}
                       height={100}
                       width={100}

@@ -2,7 +2,6 @@
 
 import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -53,7 +52,7 @@ const GmTypeItem = ({ id, image, name }) => {
       className="flex items-center border-2 border-[#2a2a2a] p-[7px] item-hover"
       key={id}
     >
-      <Image
+      <img
         src={image}
         width={100}
         height={100}

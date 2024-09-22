@@ -3,7 +3,6 @@
 import { UploadSVG } from "@/components/adminComp/SVG";
 import useLoadingStore from "@/store/loadingStore";
 import axios from "axios";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -97,7 +96,7 @@ const AddGmType = () => {
         </div>
         <div className="col-span-1 max-h-[200px] border-2 border-[#a5a5a5]">
           {file != null ? (
-            <Image
+            <img
               src={preview}
               height={100}
               width={100}

@@ -1,7 +1,6 @@
 "use client";
 
 import useLoadingStore from "@/store/loadingStore";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import LikeIMG from "@/public/likes.png";
@@ -72,7 +71,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
                   <SVGPopyLogo className="flex h-[40px]" /> - by popygames
                 </span>
 
-                <Image
+                <img
                   src={gameData.thumbnail}
                   height={100}
                   width={100}
@@ -96,7 +95,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
           </div>
           <div className="bg-siteBlue text-smokeWhite p-[8px] flex justify-between items-center">
             <div className="flex items-center gap-[10px]">
-              <Image
+              <img
                 src={gameData.thumbnail}
                 height={100}
                 width={100}
@@ -106,7 +105,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
               <h1 className="font-[800] text-[20px]">{gameData.title}</h1>
             </div>
             <span className="font-[700] text-green-400 flex items-center gap-[10px]">
-              <Image
+              <img
                 src={LikeIMG}
                 height={100}
                 width={100}
@@ -184,7 +183,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
                         className="relative bg-smokeWhite overflow-hidden group flex gap-[15px] items-center p-[10px] cursor-pointer rounded-lg border-[2px] border-siteDarkBlue hover:bg-siteYellow hover:bg-opacity-85 transition-colors duration-300 ease-in-out"
                       >
                         <div className="transition-transform duration-300 ease-in-out group-hover:rotate-[-22.5deg]">
-                          <Image
+                          <img
                             src={item.category_img}
                             height={100}
                             width={100}
@@ -215,7 +214,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
                         className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
                       >
                         <div className="relative overflow-hidden rounded-[20px]">
-                          <Image
+                          <img
                             src={item.thumbnail}
                             width={200}
                             height={200}
@@ -227,7 +226,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
                             {item.title}
                           </span>
                         </div>
-                        <Image
+                        <img
                           src={item.game_type.type_img}
                           width={35}
                           height={35}

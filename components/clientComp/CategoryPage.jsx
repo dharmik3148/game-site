@@ -1,7 +1,6 @@
 "use client";
 
 import useLoadingStore from "@/store/loadingStore";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -39,7 +38,7 @@ const CategoryPage = ({
         <section className="flex items-center justify-center gap-[10px] p-[15px]">
           {Object.keys(category).length !== 0 ? (
             <>
-              <Image
+              <img
                 src={category.category_img}
                 height={100}
                 width={100}
@@ -49,7 +48,7 @@ const CategoryPage = ({
               <h1 className="drop-shadow text-center">
                 {category.category_name} Games
               </h1>
-              <Image
+              <img
                 src={category.category_img}
                 height={100}
                 width={100}
@@ -74,7 +73,7 @@ const CategoryPage = ({
                   className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
                 >
                   <div className="relative overflow-hidden rounded-[20px]">
-                    <Image
+                    <img
                       src={item.thumbnail}
                       width={200}
                       height={200}
@@ -86,7 +85,7 @@ const CategoryPage = ({
                       {item.title}
                     </span>
                   </div>
-                  <Image
+                  <img
                     src={item.game_type.type_img}
                     width={35}
                     height={35}
@@ -122,7 +121,7 @@ const CategoryPage = ({
                   className="relative bg-smokeWhite overflow-hidden group bg-opacity-75 backdrop-blur flex gap-[15px] items-center hover:drop-shadow-xl p-[10px] cursor-pointer rounded-lg border-[2px] border-siteDarkBlue hover:bg-siteYellow hover:bg-opacity-85 transition-colors duration-300 ease-in-out"
                 >
                   <div className="transition-transform duration-300 ease-in-out group-hover:rotate-[-22.5deg]">
-                    <Image
+                    <img
                       src={item.category_img}
                       height={100}
                       width={100}
@@ -163,7 +162,7 @@ const CategoryPage = ({
                   className="relative group cursor-pointer rounded-[20px] border-[3px] border-transparent hover:border-smokeWhite"
                 >
                   <div className="relative overflow-hidden rounded-[20px]">
-                    <Image
+                    <img
                       src={item.thumbnail}
                       width={200}
                       height={200}
@@ -175,7 +174,7 @@ const CategoryPage = ({
                       {item.title}
                     </span>
                   </div>
-                  <Image
+                  <img
                     src={item.game_type.type_img}
                     width={35}
                     height={35}
