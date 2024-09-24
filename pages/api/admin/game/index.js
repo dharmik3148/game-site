@@ -66,17 +66,13 @@ export default async function handler(req, res) {
       try {
         let extractDirName;
         if (gameFolder) {
-          const zipPath = path.join(
-            process.cwd(),
-            "public/uploads/games",
-            gameFolder
-          );
+          const zipPath = path.join(process.cwd(), "uploads/games", gameFolder);
 
           // Extract base name from zip file for directory
           extractDirName = path.basename(gameFolder, path.extname(gameFolder));
           const extractPath = path.join(
             process.cwd(),
-            "public/uploads/games",
+            "uploads/games",
             extractDirName
           );
 

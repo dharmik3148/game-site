@@ -113,7 +113,7 @@ const CleanUp = () => {
                   className="text-[10px] p-[2px] flex gap-[5px] items-center"
                 >
                   <img
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/category/${item}`}
+                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploads/category/${item}`}
                     width={100}
                     height={100}
                     alt={`${key}/Cat-Img`}
@@ -152,7 +152,7 @@ const CleanUp = () => {
                   className="text-[10px] p-[2px] flex gap-[5px] items-center"
                 >
                   <img
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/gametype/${item}`}
+                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploads/gametype/${item}`}
                     width={100}
                     height={100}
                     alt={`${key}/Cat-Img`}
@@ -191,7 +191,7 @@ const CleanUp = () => {
                   className="text-[10px] p-[2px] flex gap-[5px] items-center"
                 >
                   <img
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/thumbnails/${item}`}
+                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploads/thumbnails/${item}`}
                     width={100}
                     height={100}
                     alt={`${key}/Thumb-Img`}

@@ -68,7 +68,7 @@ export default async function handler(req, res) {
 
     const filePath = path.join(
       process.cwd(),
-      "public",
+
       "uploads",
       "gametype",
       gmtype.img_path

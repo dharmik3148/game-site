@@ -101,7 +101,7 @@ export default async function handler(req, res) {
         if (newThumbnail && thumbnail_path) {
           const oldThumbnailPath = path.join(
             process.cwd(),
-            "public/uploads/thumbnails",
+            "uploads/thumbnails",
             thumbnail_path
           );
           await fsPromises.unlink(oldThumbnailPath).catch((err) => {
@@ -117,7 +117,7 @@ export default async function handler(req, res) {
         if (newGameFolder && game_folder) {
           const zipPath = path.join(
             process.cwd(),
-            "public/uploads/games",
+            "uploads/games",
             newGameFolder
           );
 
@@ -128,7 +128,7 @@ export default async function handler(req, res) {
           );
           const extractPath = path.join(
             process.cwd(),
-            "public/uploads/games",
+            "uploads/games",
             extractDirName
           );
 
@@ -164,7 +164,7 @@ export default async function handler(req, res) {
           // Delete old game folder if a new one is uploaded
           const oldGameFolderPath = path.join(
             process.cwd(),
-            "public/uploads/games",
+            "uploads/games",
             game_folder
           );
 
@@ -221,7 +221,7 @@ export default async function handler(req, res) {
     // DELETE THUMBNAIL
     const deleteThumb = path.join(
       process.cwd(),
-      "public/uploads/thumbnails",
+      "uploads/thumbnails",
       game.thumbnail_path
     );
     await fsPromises.unlink(deleteThumb).catch((err) => {
@@ -234,7 +234,7 @@ export default async function handler(req, res) {
     // DELETE GAME FOLDER
     const deleteGmFolder = path.join(
       process.cwd(),
-      "public/uploads/games",
+      "uploads/games",
       game.game_folder
     );
 

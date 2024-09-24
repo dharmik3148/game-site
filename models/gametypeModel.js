@@ -12,7 +12,7 @@ module.exports = (seq, DT) => {
         get() {
           const rawVal = this.getDataValue("type_img");
           return rawVal
-            ? `${process.env.NEXT_APP_BASE_URL}/uploads/gametype/${rawVal}`
+            ? `${process.env.NEXT_APP_BASE_URL}/api/uploads/gametype/${rawVal}`
             : null;
         },
       },

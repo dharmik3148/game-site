@@ -13,7 +13,7 @@ export function uploadSingle(dest, fieldName = "file") {
   return (req, res, next) => {
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
-        const uploadDir = `public/uploads/${dest}`;
+        const uploadDir = `uploads/${dest}`;
         ensureDirectoryExists(uploadDir);
         cb(null, uploadDir);
       },

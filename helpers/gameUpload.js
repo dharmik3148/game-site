@@ -15,9 +15,9 @@ export function gameUpload() {
       destination: (req, file, cb) => {
         let uploadDir;
         if (file.fieldname === "gm_thumbnail") {
-          uploadDir = "public/uploads/thumbnails";
+          uploadDir = "uploads/thumbnails";
         } else if (file.fieldname === "gm_folder") {
-          uploadDir = "public/uploads/games";
+          uploadDir = "uploads/games";
         } else {
           return cb(new Error("Invalid file field"), false);
         }

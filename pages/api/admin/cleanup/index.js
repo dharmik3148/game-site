@@ -49,9 +49,9 @@ export default async function handler(req, res) {
           .send({ status: false, message: "Invalid Request" });
       }
 
-      const uploadsDir = path.join(process.cwd(), "public", "uploads", type);
+      const uploadsDir = path.join(process.cwd(), "uploads", type);
 
-      if (!fs.existsSync(path.join(process.cwd(), "public", "uploads"))) {
+      if (!fs.existsSync(path.join(process.cwd(), "uploads"))) {
         return res.status(200).send({
           status: false,
           message: "Uploads directory not found.",
@@ -129,9 +129,9 @@ export default async function handler(req, res) {
           .send({ status: false, message: "Invalid Request" });
       }
 
-      const uploadsDir = path.join(process.cwd(), "public", "uploads", type);
+      const uploadsDir = path.join(process.cwd(), "uploads", type);
 
-      if (!fs.existsSync(path.join(process.cwd(), "public", "uploads"))) {
+      if (!fs.existsSync(path.join(process.cwd(), "uploads"))) {
         return res.status(200).send({
           status: false,
           message: "Uploads directory not found.",
@@ -162,7 +162,8 @@ export default async function handler(req, res) {
         const filePath = path.join(uploadsDir, item);
         try {
           if (fs.statSync(filePath).isDirectory()) {
-            fs.rmdirSync(filePath, { recursive: true });
+            fs.rmSync(filePath, { recursive: true, force: true });
+            // fs.rmdirSync(filePath, { recursive: true });
           } else {
             fs.unlinkSync(filePath);
           }

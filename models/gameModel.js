@@ -16,7 +16,7 @@ module.exports = (seq, DT) => {
         get() {
           const rawVal = this.getDataValue("thumbnail");
           return rawVal
-            ? `${process.env.NEXT_APP_BASE_URL}/uploads/thumbnails/${rawVal}`
+            ? `${process.env.NEXT_APP_BASE_URL}/api/uploads/thumbnails/${rawVal}`
             : null;
         },
       },
@@ -26,7 +26,7 @@ module.exports = (seq, DT) => {
         get() {
           const rawVal = this.getDataValue("game_path");
           return rawVal
-            ? `${process.env.NEXT_APP_BASE_URL}/uploads/games/${rawVal}/index.html`
+            ? `${process.env.NEXT_APP_BASE_URL}/api/uploads/games/${rawVal}/index.html`
             : null;
         },
       },

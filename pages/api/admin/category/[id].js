@@ -44,7 +44,7 @@ export default async function handler(req, res) {
         if (req.file) {
           const oldFilePath = path.join(
             process.cwd(),
-            "public",
+
             "uploads",
             "category",
             cat.img_path

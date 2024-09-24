@@ -12,7 +12,7 @@ module.exports = (seq, DT) => {
         get() {
           const rawVal = this.getDataValue("category_img");
           return rawVal
-            ? `${process.env.NEXT_APP_BASE_URL}/uploads/category/${rawVal}`
+            ? `${process.env.NEXT_APP_BASE_URL}/api/uploads/category/${rawVal}`
             : null;
         },
       },

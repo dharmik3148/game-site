@@ -8,6 +8,7 @@ import { SVGPopyLogo } from "./AllSvg";
 import Link from "next/link";
 import SideGames from "./SideGames";
 import AdComponent from "./AdComponent";
+import Image from "next/image";
 
 const GamePage = ({ all_category, more_games, game_data }) => {
   const [allCategory, setallCategory] = useState(all_category);
@@ -105,7 +106,7 @@ const GamePage = ({ all_category, more_games, game_data }) => {
               <h1 className="font-[800] text-[20px]">{gameData.title}</h1>
             </div>
             <span className="font-[700] text-green-400 flex items-center gap-[10px]">
-              <img
+              <Image
                 src={LikeIMG}
                 height={100}
                 width={100}
