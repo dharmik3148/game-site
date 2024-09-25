@@ -10,6 +10,7 @@ public/ads.txt
 
 # testing
 /coverage
+/uploads
 
 # next.js
 /.next/
