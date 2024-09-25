@@ -104,7 +104,7 @@ const CleanUp = () => {
           Category
         </span>
 
-        {categoryImg.length > 0 && (
+        {categoryImg.length > 0 ? (
           <div>
             {categoryImg.map((item, key) => {
               return (
@@ -131,11 +131,15 @@ const CleanUp = () => {
               Delete
             </button>
           </div>
+        ) : (
+          <></>
         )}
-        {categoryImg.length <= 0 && (
+        {categoryImg.length <= 0 ? (
           <span className="flex text-[13px] font-bold items-center justify-center text-red-500 p-[5px]">
             No Duplications Found
           </span>
+        ) : (
+          <></>
         )}
       </div>
       <div className="col-span-1 border-[2px] h-fit border-[#2a2a2a] p-[5px] flex flex-col">
@@ -143,7 +147,7 @@ const CleanUp = () => {
           Game-Type
         </span>
 
-        {gameType.length > 0 && (
+        {gameType.length > 0 ? (
           <div>
             {gameType.map((item, key) => {
               return (
@@ -170,19 +174,23 @@ const CleanUp = () => {
               Delete
             </button>
           </div>
+        ) : (
+          <></>
         )}
 
-        {gameType.length <= 0 && (
+        {gameType.length <= 0 ? (
           <span className="flex text-[13px] font-bold items-center justify-center text-red-500 p-[5px]">
             No Duplications Found
           </span>
+        ) : (
+          <></>
         )}
       </div>
       <div className="relative col-span-1 border-[2px] h-fit border-[#2a2a2a] p-[5px] flex flex-col">
         <span className="bg-[#2a2a2a] flex items-center justify-center p-[5px] text-smokeWhite mb-[5px]">
           Thumbnails
         </span>
-        {thumbnails.length > 0 && (
+        {thumbnails.length > 0 ? (
           <div>
             {thumbnails.map((item, key) => {
               return (
@@ -209,6 +217,8 @@ const CleanUp = () => {
               Delete
             </button>
           </div>
+        ) : (
+          <></>
         )}
         {thumbnails.length <= 0 && (
           <span className="flex text-[13px] font-bold items-center justify-center text-red-500 p-[5px]">
@@ -221,7 +231,7 @@ const CleanUp = () => {
           Games
         </span>
 
-        {games.length > 0 && (
+        {games.length > 0 ? (
           <div>
             {games.map((item, key) => {
               return (
@@ -241,11 +251,15 @@ const CleanUp = () => {
               Delete
             </button>
           </div>
+        ) : (
+          <></>
         )}
-        {games.length <= 0 && (
+        {games.length <= 0 ? (
           <span className="flex text-[13px] font-bold items-center justify-center text-red-500 p-[5px]">
             No Duplications Found
           </span>
+        ) : (
+          <></>
         )}
       </div>
     </div>
